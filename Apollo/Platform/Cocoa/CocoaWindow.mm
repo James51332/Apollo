@@ -2,6 +2,8 @@
 
 #include <Cocoa/Cocoa.h>
 
+#include "CocoaContext.h"
+
 @interface WindowDelegate : NSObject <NSWindowDelegate> {
   bool *open;
 }
@@ -50,12 +52,30 @@ CocoaWindow::CocoaWindow(const WindowDescription &desc) {
 }
 
 CocoaWindow::~CocoaWindow() {
+  ((CocoaContext *)m_Context)->SetWindow(nullptr);
+  delete m_Context;
+  m_Context = nullptr;
+
   [(NSWindow *)m_Object release];
   m_Object = nullptr;
 }
 
 void CocoaWindow::Update() {
-  //TODO: Update Context
+  m_Context->Update();
+}
+
+void CocoaWindow::SetContext(RenderingContext *context) {
+  m_Context = context;
+
+  ((CocoaContext *) context)->SetWindow(m_Object);
+}
+
+int CocoaWindow::GetWidth() {
+  return [(NSWindow *)m_Object contentRectForFrameRect: [(NSWindow *)m_Object frame]].size.width;
+}
+
+int CocoaWindow::GetHeight() {
+  return [(NSWindow *)m_Object contentRectForFrameRect: [(NSWindow *)m_Object frame]].size.height;
 }
 
 } // namespace Apollo

@@ -23,6 +23,9 @@ namespace Apollo
   private:
     Application *m_Application;
     Window *m_Window;
+
+  protected:
+    WindowDescription WindowDescription;
   };
 
 } // namespace Apollo

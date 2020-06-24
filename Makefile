@@ -4,8 +4,10 @@ SRCFILES =\
 Apollo/Application/Game.cpp \
 Apollo/Application/Application.cpp \
 Apollo/Application/Window.cpp \
+Apollo/Renderer/RenderingContext.cpp \
 Apollo/Platform/Cocoa/CocoaApplication.mm \
-Apollo/Platform/Cocoa/CocoaWindow.mm
+Apollo/Platform/Cocoa/CocoaWindow.mm \
+Apollo/Platform/Cocoa/CocoaContext.mm
 
 SANDBOXFILES =\
 Sandbox/Example.cpp
@@ -13,7 +15,11 @@ Sandbox/Example.cpp
 CWD = $(shell pwd)/
 
 COCOAFLAGS =\
--framework Cocoa
+-framework Cocoa \
+-framework OpenGL \
+-D APOLLO_COCOA \
+-D GL_SILENCE_DEPRECATION \
+-Wno-deprecated-declarations
 
 FLAGS =\
 -std=c++17 \

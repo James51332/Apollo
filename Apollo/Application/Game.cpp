@@ -16,7 +16,7 @@ namespace Apollo
 
   void Game::Initialize()
   {
-    m_Window = Window::Create();
+    m_Window = Window::Create(WindowDescription);
   }
 
   void Game::Update()

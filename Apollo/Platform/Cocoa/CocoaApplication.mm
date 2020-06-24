@@ -6,6 +6,7 @@ namespace Apollo {
 
 CocoaApplication::CocoaApplication() {
   m_App = (void *)[NSApplication sharedApplication];
+  [(NSApplication *)m_App setActivationPolicy: NSApplicationActivationPolicyRegular];
 }
 
 CocoaApplication::~CocoaApplication() {

@@ -13,6 +13,10 @@ namespace Apollo
     ~CocoaWindow();
 
     void Update();
+    void SetContext(RenderingContext *context);
+
+    int GetWidth();
+    int GetHeight();
 
   private:
     void *m_Object;

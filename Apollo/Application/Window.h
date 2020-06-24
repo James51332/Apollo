@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "Renderer/RenderingContext.h"
+
 namespace Apollo
 {
 
@@ -12,6 +14,7 @@ namespace Apollo
     std::string Title;
 
     bool Resizable = true;
+    RenderingApi ContextApi = RenderingApi::OpenGL;
 
     WindowDescription(int width = 800, int height = 600, const std::string &title = "Apollo Game")
         : Width(width), Height(height), Title(title) {}
@@ -24,10 +27,16 @@ namespace Apollo
     virtual ~Window();
 
     virtual void Update() = 0;
+    virtual void SetContext(RenderingContext *context) = 0;
+
+    virtual int GetWidth() = 0;
+    virtual int GetHeight() = 0;
 
     bool IsOpen() const { return m_Open; }
 
   protected:
+    RenderingContext *m_Context;
+
     bool m_Open = false;
   };
 
