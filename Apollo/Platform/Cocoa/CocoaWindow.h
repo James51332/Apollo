@@ -1,0 +1,24 @@
+#ifndef CocoaWindow_h
+#define CocoaWindow_h
+
+#include "Application/Window.h"
+
+namespace Apollo
+{
+
+  class CocoaWindow : public Window
+  {
+  public:
+    CocoaWindow(const WindowDescription &desc = WindowDescription());
+    ~CocoaWindow();
+
+    void Update();
+
+  private:
+    void *m_Object;
+    void *m_Delegate;
+  };
+
+} // namespace Apollo
+
+#endif /* end of include guard: CocoaWindow_h */
