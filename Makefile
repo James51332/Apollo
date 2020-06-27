@@ -9,6 +9,10 @@ Apollo/Platform/Cocoa/CocoaApplication.mm \
 Apollo/Platform/Cocoa/CocoaWindow.mm \
 Apollo/Platform/Cocoa/CocoaContext.mm
 
+THIRDPARTY =\
+Apollo/Platform/OpenGL/OpenGLLoader.cpp
+#ThirdParty/gl3w/gl3w.cpp
+
 SANDBOXFILES =\
 Sandbox/Example.cpp
 
@@ -26,8 +30,15 @@ FLAGS =\
 -o Bin/$(NAME) \
 -iquote $(CWD)Apollo/ \
 -I $(CWD) \
+-I $(CWD)ThirdParty/gl3w/ \
 $(COCOAFLAGS)
 
 .SILENT:
 cocoa:
-	clang++ $(SRCFILES) $(SANDBOXFILES) $(FLAGS)
+	clang++ $(SRCFILES) $(SANDBOXFILES) $(THIRDPARTY) $(FLAGS)
+
+run:
+	./Bin/$(NAME)
+
+loc:
+	git ls-files | xargs wc -l

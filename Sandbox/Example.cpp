@@ -6,6 +6,7 @@ class Example : public Apollo::Game
 public:
   void Initialize() override
   {
+    WindowDescription = Apollo::WindowDescription(1280, 720, "Example");
   }
 
   void Update() override
@@ -24,6 +25,10 @@ public:
   void Deinitialize() override
   {
   }
+
+private:
+  GLuint test;
+  bool bruh = false;
 };
 
 int main()

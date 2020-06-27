@@ -16,7 +16,7 @@ namespace Apollo
 
   void Game::Initialize()
   {
-    m_Window = Window::Create(WindowDescription);
+    m_Window = Window::Create();
   }
 
   void Game::Update()
@@ -36,8 +36,11 @@ namespace Apollo
 
   void Game::Run()
   {
-    Initialize();
     Game::Initialize();
+    Initialize();
+
+    m_Window->SetDesc(WindowDescription);
+    m_Window->Show();
 
     while (m_Window->IsOpen())
     {

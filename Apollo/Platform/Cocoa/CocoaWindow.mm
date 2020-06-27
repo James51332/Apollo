@@ -45,10 +45,6 @@ CocoaWindow::CocoaWindow(const WindowDescription &desc) {
   
   m_Delegate = [[WindowDelegate alloc] init: &m_Open];
   [(NSWindow *)m_Object setDelegate: (id<NSWindowDelegate>)m_Delegate];
-
-  [(NSWindow *)m_Object makeKeyAndOrderFront: nil];
-  [(NSWindow *)m_Object makeMainWindow];
-  m_Open = true;
 }
 
 CocoaWindow::~CocoaWindow() {
@@ -76,6 +72,22 @@ int CocoaWindow::GetWidth() {
 
 int CocoaWindow::GetHeight() {
   return [(NSWindow *)m_Object contentRectForFrameRect: [(NSWindow *)m_Object frame]].size.height;
+}
+
+void CocoaWindow::SetDesc(const WindowDescription &desc) {
+  int titlebar = [(NSWindow *)m_Object frame].size.height - GetHeight();
+
+  [(NSWindow *)m_Object setFrame: NSMakeRect(0.0, 0.0, desc.Width, desc.Height + titlebar)
+                         display: NO];
+                      
+  [(NSWindow *)m_Object center];
+  [(NSWindow *)m_Object setTitle: @(desc.Title.c_str())];
+}
+
+void CocoaWindow::Show() {
+  [(NSWindow *)m_Object makeKeyAndOrderFront: nil];
+  [(NSWindow *)m_Object makeMainWindow];
+  m_Open = true;  
 }
 
 } // namespace Apollo

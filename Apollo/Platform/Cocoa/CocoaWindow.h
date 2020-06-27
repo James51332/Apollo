@@ -18,6 +18,9 @@ namespace Apollo
     int GetWidth();
     int GetHeight();
 
+    void SetDesc(const WindowDescription &desc);
+    void Show();
+
   private:
     void *m_Object;
     void *m_Delegate;

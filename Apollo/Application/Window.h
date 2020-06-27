@@ -32,7 +32,14 @@ namespace Apollo
     virtual int GetWidth() = 0;
     virtual int GetHeight() = 0;
 
-    bool IsOpen() const { return m_Open; }
+    virtual void SetDesc(const WindowDescription &desc) = 0;
+    virtual void Show() = 0;
+
+    bool
+    IsOpen() const
+    {
+      return m_Open;
+    }
 
   protected:
     RenderingContext *m_Context;
