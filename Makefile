@@ -9,9 +9,7 @@ Apollo/Platform/Cocoa/CocoaApplication.mm \
 Apollo/Platform/Cocoa/CocoaWindow.mm \
 Apollo/Platform/Cocoa/CocoaContext.mm
 
-THIRDPARTY =\
-Apollo/Platform/OpenGL/OpenGLLoader.cpp
-#ThirdParty/gl3w/gl3w.cpp
+THIRDPARTY =
 
 SANDBOXFILES =\
 Sandbox/Example.cpp
