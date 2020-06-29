@@ -1,17 +1,28 @@
 #include "RenderingContext.h"
 
 #include "Platform/Cocoa/CocoaContext.h"
+#include "Platform/OpenGL/OpenGLLoader.h"
 
 namespace Apollo
 {
 
+  bool RenderingContext::s_IsOpenGLInitialized = false;
+
   RenderingContext *RenderingContext::Create(RenderingApi api)
   {
+    RenderingContext *ctxt = nullptr;
+
 #ifdef APOLLO_COCOA
-    return CocoaContext::Create(api);
+    ctxt = CocoaContext::Create(api);
 #endif
 
-    return nullptr;
+    if (api == RenderingApi::OpenGL && !RenderingContext::s_IsOpenGLInitialized)
+    {
+      InitializeOpenGL();
+      RenderingContext::s_IsOpenGLInitialized = true;
+    }
+
+    return ctxt;
   }
 
   RenderingContext::~RenderingContext()

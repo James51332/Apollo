@@ -5,11 +5,12 @@ Apollo/Application/Game.cpp \
 Apollo/Application/Application.cpp \
 Apollo/Application/Window.cpp \
 Apollo/Renderer/RenderingContext.cpp \
+Apollo/Renderer/Shader.cpp \
 Apollo/Platform/Cocoa/CocoaApplication.mm \
 Apollo/Platform/Cocoa/CocoaWindow.mm \
-Apollo/Platform/Cocoa/CocoaContext.mm
-
-THIRDPARTY =
+Apollo/Platform/Cocoa/CocoaContext.mm \
+Apollo/Platform/OpenGL/OpenGLLoader.cpp \
+Apollo/Platform/OpenGL/OpenGLShader.cpp
 
 SANDBOXFILES =\
 Sandbox/Example.cpp
@@ -33,7 +34,7 @@ $(COCOAFLAGS)
 
 .SILENT:
 cocoa:
-	clang++ $(SRCFILES) $(SANDBOXFILES) $(THIRDPARTY) $(FLAGS)
+	clang++ $(SRCFILES) $(SANDBOXFILES) $(FLAGS)
 
 run:
 	./Bin/$(NAME)

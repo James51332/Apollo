@@ -7,9 +7,7 @@ namespace Apollo
   enum class RenderingApi
   {
     None = 0,
-
     OpenGL
-
   };
 
 } // namespace Apollo

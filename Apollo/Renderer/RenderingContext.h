@@ -22,6 +22,9 @@ namespace Apollo
 
   protected:
     RenderingApi m_Api;
+
+  private:
+    static bool s_IsOpenGLInitialized;
   };
 
 } // namespace Apollo

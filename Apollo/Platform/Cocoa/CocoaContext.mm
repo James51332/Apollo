@@ -34,7 +34,7 @@ CocoaOpenGLContext::CocoaOpenGLContext()
   NSOpenGLPixelFormatAttribute attributes[] = {
     NSOpenGLPFADepthSize, 32,
     NSOpenGLPFADoubleBuffer,
-    //NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion4_1Core, 
+    NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion4_1Core, 
     0
   };
 
