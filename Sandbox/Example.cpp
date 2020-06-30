@@ -3,8 +3,8 @@
 
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
 
-#include <iostream>
 #include <string>
 
 class Example : public Apollo::Game
@@ -36,14 +36,15 @@ public:
       FragColor = vec4(v_Color, 1.0f);
     })";
 
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
+    Apollo::VertexArray *vertexArray = Apollo::VertexArray::Create();
 
     float vertices[] = {0.0f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f};
     Apollo::VertexBuffer *vertexBuffer = Apollo::VertexBuffer::Create(vertices, sizeof(vertices));
+    vertexArray->AddVertexBuffer(vertexBuffer);
 
     uint32_t indices[] = {0, 1, 2};
     Apollo::IndexBuffer *indexBuffer = Apollo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+    vertexArray->SetIndexBuffer(indexBuffer);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, false, 12, (void *)0);
@@ -61,7 +62,6 @@ public:
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-    glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
   }
 
