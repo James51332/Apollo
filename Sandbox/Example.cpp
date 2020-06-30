@@ -1,12 +1,4 @@
 #include <Apollo/Apollo.h>
-#include "Platform/OpenGL/OpenGLLoader.h"
-
-#include "Renderer/Shader.h"
-#include "Renderer/Buffer.h"
-#include "Renderer/VertexArray.h"
-#include "Renderer/RenderCommand.h"
-#include "Renderer/Renderer.h"
-
 #include <string>
 
 class Example : public Apollo::Game
@@ -16,8 +8,7 @@ public:
   {
     WindowDescription = Apollo::WindowDescription(1280, 720, "Example");
 
-    std::string vertexSource =
-        R"(#version 330 core
+    std::string vertexSource = R"(#version 330 core
 
     layout(location = 0) in vec3 a_Pos;
     out vec3 v_Color;
@@ -27,8 +18,7 @@ public:
       gl_Position = vec4(a_Pos, 1.0);
     })";
 
-    std::string fragmentSource =
-        R"(#version 330 core
+    std::string fragmentSource = R"(#version 330 core
 
     out vec4 FragColor;
     in vec3 v_Color;
