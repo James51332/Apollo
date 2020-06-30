@@ -1,6 +1,8 @@
 #include <Apollo/Apollo.h>
 #include <string>
 
+#include "Math/Vector.h"
+
 class Example : public Apollo::Game
 {
 public:
