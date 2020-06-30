@@ -5,7 +5,6 @@
 
 namespace Apollo
 {
-
   ////////////////////////////////////////////////////////////
   ///// OpenGLVertexBuffer ///////////////////////////////////
   ////////////////////////////////////////////////////////////
@@ -18,6 +17,8 @@ namespace Apollo
 
     void Bind();
     void Unbind();
+
+    void SetLayout(const BufferLayout &layout);
 
   private:
     unsigned int m_RendererID;

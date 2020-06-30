@@ -40,14 +40,13 @@ public:
 
     float vertices[] = {0.0f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f};
     Apollo::VertexBuffer *vertexBuffer = Apollo::VertexBuffer::Create(vertices, sizeof(vertices));
+    Apollo::BufferLayout layout = {{Apollo::ShaderDataType::Float3, "a_Pos"}};
+    vertexBuffer->SetLayout(layout);
     vertexArray->AddVertexBuffer(vertexBuffer);
 
     uint32_t indices[] = {0, 1, 2};
     Apollo::IndexBuffer *indexBuffer = Apollo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
     vertexArray->SetIndexBuffer(indexBuffer);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, false, 12, (void *)0);
 
     Apollo::Shader *shader = Apollo::Shader::Create(vertexSource, fragmentSource);
     shader->Bind();

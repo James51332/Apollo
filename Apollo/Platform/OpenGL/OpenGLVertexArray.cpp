@@ -1,8 +1,58 @@
 #include "OpenGLVertexArray.h"
-#include "OpenGLLoader.h"
+#include "Platform/OpenGL/OpenGLLoader.h"
+
+#include "Renderer/Buffer.h"
 
 namespace Apollo
 {
+
+  ////////////////////////////////////////////////////////////
+  ///// ShaderDataType ///////////////////////////////////////
+  ////////////////////////////////////////////////////////////
+
+  static GLenum ShaderDataTypeToOpenGLEnum(ShaderDataType type)
+  {
+    switch (type)
+    {
+    case ShaderDataType::None:
+      return 0;
+      break;
+    case ShaderDataType::Float:
+      return GL_FLOAT;
+      break;
+    case ShaderDataType::Float2:
+      return GL_FLOAT;
+      break;
+    case ShaderDataType::Float3:
+      return GL_FLOAT;
+      break;
+    case ShaderDataType::Float4:
+      return GL_FLOAT;
+      break;
+    case ShaderDataType::Mat3:
+      return GL_FLOAT;
+      break;
+    case ShaderDataType::Mat4:
+      return GL_FLOAT;
+      break;
+    case ShaderDataType::Int:
+      return GL_INT;
+      break;
+    case ShaderDataType::Int2:
+      return GL_INT;
+      break;
+    case ShaderDataType::Int3:
+      return GL_INT;
+      break;
+    case ShaderDataType::Int4:
+      return GL_INT;
+      break;
+    }
+  }
+
+  ////////////////////////////////////////////////////////////
+  ///// OpenGLVertexArray ////////////////////////////////////
+  ////////////////////////////////////////////////////////////
 
   OpenGLVertexArray::OpenGLVertexArray()
   {
@@ -28,6 +78,19 @@ namespace Apollo
   {
     glBindVertexArray(m_RendererID);
     vertexBuffer->Bind();
+
+    for (const auto &element : vertexBuffer->GetLayout().GetElements())
+    {
+      glEnableVertexAttribArray(m_Index);
+      glVertexAttribPointer(m_Index,
+                            element.GetElementCount(),
+                            ShaderDataTypeToOpenGLEnum(element.Type),
+                            element.Normalized,
+                            vertexBuffer->GetLayout().GetStride(),
+                            (void *)(unsigned long)element.Offset);
+
+      m_Index++;
+    }
 
     m_VertexBuffers.push_back(vertexBuffer);
   }
