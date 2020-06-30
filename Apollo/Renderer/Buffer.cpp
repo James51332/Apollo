@@ -1,0 +1,33 @@
+#include "Buffer.h"
+#include "Platform/OpenGL/OpenGLBuffer.h"
+
+namespace Apollo
+{
+
+  ////////////////////////////////////////////////////////////
+  ///// VertexBuffer /////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
+
+  VertexBuffer *VertexBuffer::Create(float *vertices, uint32_t size)
+  {
+    return new OpenGLVertexBuffer(vertices, size);
+  }
+
+  VertexBuffer::~VertexBuffer()
+  {
+  }
+
+  ////////////////////////////////////////////////////////////
+  ///// IndexBuffer //////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
+
+  IndexBuffer *IndexBuffer::Create(uint32_t *indices, uint32_t count)
+  {
+    return new OpenGLIndexBuffer(indices, count);
+  }
+
+  IndexBuffer::~IndexBuffer()
+  {
+  }
+
+} // namespace Apollo
