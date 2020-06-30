@@ -8,7 +8,7 @@ namespace Apollo
 
   bool RenderingContext::s_IsOpenGLInitialized = false;
 
-  RenderingContext *RenderingContext::Create(RenderingApi api)
+  RenderingContext *RenderingContext::Create(RenderingApi::Api api)
   {
     RenderingContext *ctxt = nullptr;
 
@@ -16,7 +16,7 @@ namespace Apollo
     ctxt = CocoaContext::Create(api);
 #endif
 
-    if (api == RenderingApi::OpenGL && !RenderingContext::s_IsOpenGLInitialized)
+    if (api == RenderingApi::Api::OpenGL && !RenderingContext::s_IsOpenGLInitialized)
     {
       InitializeOpenGL();
       RenderingContext::s_IsOpenGLInitialized = true;

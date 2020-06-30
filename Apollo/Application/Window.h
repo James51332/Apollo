@@ -14,7 +14,7 @@ namespace Apollo
     std::string Title;
 
     bool Resizable = true;
-    RenderingApi ContextApi = RenderingApi::OpenGL;
+    RenderingApi::Api ContextApi = RenderingApi::Api::OpenGL;
 
     WindowDescription(int width = 800, int height = 600, const std::string &title = "Apollo Game")
         : Width(width), Height(height), Title(title) {}

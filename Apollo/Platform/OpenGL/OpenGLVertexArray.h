@@ -18,11 +18,9 @@ namespace Apollo
     void AddVertexBuffer(VertexBuffer *vertexBuffer);
     void SetIndexBuffer(IndexBuffer *indexBuffer);
 
-    IndexBuffer *GetIndexBuffer();
-
   private:
     uint32_t m_RendererID;
-    uint32_t m_Index;
+    uint32_t m_Index = 0;
   };
 
 } // namespace Apollo

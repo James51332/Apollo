@@ -20,7 +20,7 @@ namespace Apollo
     virtual void AddVertexBuffer(VertexBuffer *vertexBuffer) = 0;
     virtual void SetIndexBuffer(IndexBuffer *indexBuffer) = 0;
 
-    virtual IndexBuffer *GetIndexBuffer() = 0;
+    const IndexBuffer *GetIndexBuffer() const { return m_IndexBuffer; }
 
   protected:
     std::vector<VertexBuffer *> m_VertexBuffers;

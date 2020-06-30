@@ -103,9 +103,4 @@ namespace Apollo
     m_IndexBuffer = indexBuffer;
   }
 
-  IndexBuffer *OpenGLVertexArray::GetIndexBuffer()
-  {
-    return m_IndexBuffer;
-  }
-
 } // namespace Apollo

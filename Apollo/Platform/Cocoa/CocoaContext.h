@@ -13,7 +13,7 @@ namespace Apollo
   class CocoaContext : public RenderingContext
   {
   public:
-    static CocoaContext *Create(RenderingApi api);
+    static CocoaContext *Create(RenderingApi::Api api);
     virtual ~CocoaContext();
 
     virtual void Update() = 0;

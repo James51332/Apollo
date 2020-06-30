@@ -13,15 +13,15 @@ namespace Apollo
   {
   public:
     //TODO: Accept Rendering Api for creation of
-    static RenderingContext *Create(RenderingApi api);
+    static RenderingContext *Create(RenderingApi::Api api);
     virtual ~RenderingContext();
 
     virtual void Update() = 0;
 
-    RenderingApi GetApi() const { return m_Api; }
+    RenderingApi::Api GetApi() const { return m_Api; }
 
   protected:
-    RenderingApi m_Api;
+    RenderingApi::Api m_Api;
 
   private:
     static bool s_IsOpenGLInitialized;

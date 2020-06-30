@@ -4,6 +4,8 @@
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/RenderCommand.h"
+#include "Renderer/Renderer.h"
 
 #include <string>
 
@@ -36,20 +38,20 @@ public:
       FragColor = vec4(v_Color, 1.0f);
     })";
 
-    Apollo::VertexArray *vertexArray = Apollo::VertexArray::Create();
+    shader = Apollo::Shader::Create(vertexSource, fragmentSource);
+    shader->Bind();
 
     float vertices[] = {0.0f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f};
     Apollo::VertexBuffer *vertexBuffer = Apollo::VertexBuffer::Create(vertices, sizeof(vertices));
     Apollo::BufferLayout layout = {{Apollo::ShaderDataType::Float3, "a_Pos"}};
     vertexBuffer->SetLayout(layout);
-    vertexArray->AddVertexBuffer(vertexBuffer);
 
     uint32_t indices[] = {0, 1, 2};
     Apollo::IndexBuffer *indexBuffer = Apollo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
-    vertexArray->SetIndexBuffer(indexBuffer);
 
-    Apollo::Shader *shader = Apollo::Shader::Create(vertexSource, fragmentSource);
-    shader->Bind();
+    vertexArray = Apollo::VertexArray::Create();
+    vertexArray->AddVertexBuffer(vertexBuffer);
+    vertexArray->SetIndexBuffer(indexBuffer);
   }
 
   void Update() override
@@ -58,10 +60,12 @@ public:
 
   void Draw() override
   {
-    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    Apollo::RenderCommand::ClearColor(0.2f, 0.2f, 0.2f);
+    Apollo::RenderCommand::Clear();
 
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+    Apollo::Renderer::Begin();
+    Apollo::Renderer::Submit(shader, vertexArray);
+    Apollo::Renderer::End();
   }
 
   void Deinitialize() override
@@ -69,7 +73,8 @@ public:
   }
 
 private:
-  GLuint vao, vbo, ibo, vshader, fshader;
+  Apollo::Shader *shader;
+  Apollo::VertexArray *vertexArray;
 };
 
 int main()

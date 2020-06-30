@@ -170,6 +170,11 @@ namespace Apollo
 
     virtual void Bind() = 0;
     virtual void Unbind() = 0;
+
+    const uint32_t GetCount() const { return m_Count; }
+
+  protected:
+    uint32_t m_Count;
   };
 
 } // namespace Apollo
