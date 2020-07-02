@@ -19,6 +19,7 @@ namespace Apollo
     virtual void Deinitialize();
 
     void Run();
+    void OnEvent(Event &event);
 
   private:
     Application *m_Application;

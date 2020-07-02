@@ -117,7 +117,7 @@ namespace Apollo
   {
   public:
     BufferLayout(std::initializer_list<BufferElement> elements)
-        : m_Elements(elements) {}
+        : m_Elements(elements) { CalculateOffsetsAndStride(); }
     BufferLayout() {}
 
     inline uint32_t GetStride() const { return m_Stride; }

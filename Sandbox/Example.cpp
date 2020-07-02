@@ -1,14 +1,15 @@
 #include <Apollo/Apollo.h>
 #include <string>
+#include <iostream>
 
-#include "Math/Vector.h"
+#include "Math/Matrix.h"
 
 class Example : public Apollo::Game
 {
 public:
   void Initialize() override
   {
-    WindowDescription = Apollo::WindowDescription(1280, 720, "Example");
+    //WindowDescription = Apollo::WindowDescription(1280, 720, "Example");
 
     std::string vertexSource = R"(#version 330 core
 

@@ -1,5 +1,8 @@
 #include "Game.h"
 
+#include <memory>
+#include <iostream>
+
 namespace Apollo
 {
 
@@ -39,6 +42,7 @@ namespace Apollo
     Game::Initialize();
     Initialize();
 
+    m_Window->SetEventCallback(std::bind(&Game::OnEvent, this, std::placeholders::_1));
     m_Window->SetDesc(WindowDescription);
     m_Window->Show();
 
@@ -53,6 +57,14 @@ namespace Apollo
 
     Deinitialize();
     Game::Deinitialize();
+  }
+
+  void Game::OnEvent(Event &event)
+  {
+    if (event.GetEventType() == EventType::AppRender)
+    {
+      m_Window->Update();
+    }
   }
 
 } // namespace Apollo

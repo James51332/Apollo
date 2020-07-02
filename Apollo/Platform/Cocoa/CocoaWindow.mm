@@ -62,7 +62,6 @@ void CocoaWindow::Update() {
 
 void CocoaWindow::SetContext(RenderingContext *context) {
   m_Context = context;
-
   ((CocoaContext *) context)->SetWindow(m_Object);
 }
 
@@ -82,6 +81,12 @@ void CocoaWindow::SetDesc(const WindowDescription &desc) {
                       
   [(NSWindow *)m_Object center];
   [(NSWindow *)m_Object setTitle: @(desc.Title.c_str())];
+}
+
+void CocoaWindow::SetEventCallback(const EventCallbackFn &callback)
+{
+  m_Callback = callback;
+  ((CocoaContext *) m_Context)->SetCallback(callback);
 }
 
 void CocoaWindow::Show() {

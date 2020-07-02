@@ -21,6 +21,8 @@ namespace Apollo
     void SetDesc(const WindowDescription &desc);
     void Show();
 
+    void SetEventCallback(const EventCallbackFn &callback);
+
   private:
     void *m_Object;
     void *m_Delegate;

@@ -59,6 +59,7 @@ extern "C"
 #define GL_VALIDATE_STATUS 0x8B83
 
 #define GL_FUNCS                                                                                                  \
+  GL_FUNC(GLvoid, glViewport, GLuint x, GLuint y, GLuint w, GLuint h)                                             \
   GL_FUNC(GLvoid, glClearColor, GLfloat r, GLfloat g, GLfloat b, GLfloat a)                                       \
   GL_FUNC(GLvoid, glClear, GLenum)                                                                                \
   GL_FUNC(GLvoid, glGenBuffers, GLsizei n, GLuint *buffers)                                                       \
