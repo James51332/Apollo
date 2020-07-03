@@ -11,8 +11,12 @@ namespace Apollo
   public:
     enum class Api
     {
+#ifdef APOLLO_COCOA
       None = 0,
       OpenGL
+#else
+      None = 0
+#endif
     };
 
   public:

@@ -61,10 +61,6 @@ namespace Apollo
 
   void Game::OnEvent(Event &event)
   {
-    if (event.GetEventType() == EventType::AppRender)
-    {
-      m_Window->Update();
-    }
   }
 
 } // namespace Apollo

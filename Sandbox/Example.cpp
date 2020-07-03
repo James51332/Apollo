@@ -1,6 +1,7 @@
 #include <Apollo/Apollo.h>
 #include <string>
 #include <iostream>
+#include <memory>
 
 #include "Math/Matrix.h"
 
@@ -33,6 +34,16 @@ public:
 
     shader = Apollo::Shader::Create(vertexSource, fragmentSource);
     shader->Bind();
+
+    Apollo::Matrix4 m = Apollo::Matrix4(2.0);
+    Apollo::Matrix4 l = Apollo::Matrix4(1.0);
+
+    m = l * m;
+
+    std::cout << m.LCol.X << m.LMCol.X << m.RMCol.X << m.RCol.X << std::endl;
+    std::cout << m.LCol.Y << m.LMCol.Y << m.RMCol.Y << m.RCol.Y << std::endl;
+    std::cout << m.LCol.Z << m.LMCol.Z << m.RMCol.Z << m.RCol.Z << std::endl;
+    std::cout << m.LCol.W << m.LMCol.W << m.RMCol.W << m.RCol.W << std::endl;
 
     float vertices[] = {0.0f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f};
     Apollo::VertexBuffer *vertexBuffer = Apollo::VertexBuffer::Create(vertices, sizeof(vertices));
@@ -74,7 +85,6 @@ int main()
 {
   Example *instance = new Example();
   instance->Run();
-  delete instance;
 
   return 0;
 }

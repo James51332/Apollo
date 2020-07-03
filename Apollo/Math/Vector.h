@@ -23,11 +23,20 @@ namespace Apollo
     Vector2(float x, float y)
         : X(x), Y(y) {}
 
-    ///// Overload ////////////////////////////////////////////
-    void operator=(const Vector2 &vector)
+    ///// Comparison ///////////////////////////////////////////
+    bool Equals(const Vector2 &vector) const
     {
-      this->X = vector.X;
-      this->Y = vector.Y;
+      return vector.X == X && vector.Y == Y;
+    }
+
+    bool operator==(const Vector2 &vector) const
+    {
+      return Equals(vector);
+    }
+
+    bool operator!=(const Vector2 &matrix) const
+    {
+      return !Equals(matrix);
     }
 
     ///// Addition /////////////////////////////////////////////
@@ -74,8 +83,7 @@ namespace Apollo
       (*this) = Vector2(this->X * scalar, this->Y * scalar);
     }
 
-    Vector2
-    operator*(Scalar scalar) const
+    Vector2 operator*(Scalar scalar) const
     {
       return this->Scale(scalar);
     }
@@ -104,12 +112,20 @@ namespace Apollo
     Vector3(float x, float y, float z)
         : X(x), Y(y), Z(z) {}
 
-    ///// Overload ////////////////////////////////////////////
-    void operator=(const Vector3 &vector)
+    ///// Comparison ///////////////////////////////////////////
+    bool Equals(const Vector3 &vector) const
     {
-      this->X = vector.X;
-      this->Y = vector.Y;
-      this->Z = vector.Z;
+      return vector.X == X && vector.Y == Y && vector.Z == Z;
+    }
+
+    bool operator==(const Vector3 &vector) const
+    {
+      return Equals(vector);
+    }
+
+    bool operator!=(const Vector3 &matrix) const
+    {
+      return !Equals(matrix);
     }
 
     ///// Addition /////////////////////////////////////////////
@@ -188,13 +204,20 @@ namespace Apollo
     Vector4(float x, float y, float z, float w)
         : X(x), Y(y), Z(z), W(w) {}
 
-    ///// Overload ////////////////////////////////////////////
-    void operator=(const Vector4 &vector)
+    ///// Comparison ///////////////////////////////////////////
+    bool Equals(const Vector4 &vector) const
     {
-      this->X = vector.X;
-      this->Y = vector.Y;
-      this->Z = vector.Z;
-      this->W = vector.W;
+      return vector.X == X && vector.Y == Y && vector.Z == Z && vector.W == W;
+    }
+
+    bool operator==(const Vector4 &vector) const
+    {
+      return Equals(vector);
+    }
+
+    bool operator!=(const Vector4 &matrix) const
+    {
+      return !Equals(matrix);
     }
 
     ///// Addition /////////////////////////////////////////////
