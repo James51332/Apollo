@@ -109,27 +109,42 @@ namespace Apollo
   };
 
   ////////////////////////////////////////////////////////////
-  ///// Matrix3 And Scalar ///////////////////////////////////
-  ////////////////////////////////////////////////////////////
-
-  Matrix3 operator*(const Scalar scalar, const Matrix3 &matrix)
-  {
-    return matrix * scalar;
-  }
-
-  ////////////////////////////////////////////////////////////
   ///// Matrix4 //////////////////////////////////////////////
   ////////////////////////////////////////////////////////////
 
   struct Matrix4
   {
     Vector4 LCol, LMCol, RMCol, RCol;
+    float glArray[16];
 
     Matrix4(float x)
         : LCol(x, 0.0, 0.0, 0.0), LMCol(0.0, x, 0.0, 0.0), RMCol(0.0, 0.0, x, 0.0), RCol(0.0, 0.0, 0.0, x) {}
 
     Matrix4(const Vector4 &l, const Vector4 &lm, const Vector4 &rm, const Vector4 &r)
         : LCol(l), LMCol(lm), RMCol(rm), RCol(r) {}
+
+    ///// Comparison ///////////////////////////////////////////
+    float *GetUniformArray()
+    {
+      glArray[0] = LCol.X;
+      glArray[1] = LCol.Y;
+      glArray[2] = LCol.Z;
+      glArray[3] = LCol.W;
+      glArray[4] = LMCol.X;
+      glArray[5] = LMCol.Y;
+      glArray[6] = LMCol.Z;
+      glArray[7] = LMCol.W;
+      glArray[8] = RMCol.X;
+      glArray[9] = RMCol.Y;
+      glArray[10] = RMCol.Z;
+      glArray[11] = RMCol.W;
+      glArray[12] = RCol.X;
+      glArray[13] = RCol.Y;
+      glArray[14] = RCol.Z;
+      glArray[15] = RCol.W;
+
+      return (float *)glArray;
+    }
 
     ///// Comparison ///////////////////////////////////////////
     bool Equals(const Matrix4 &matrix) const
@@ -224,15 +239,6 @@ namespace Apollo
                      Vector4(horizontal.LCol * matrix.RCol, horizontal.LMCol * matrix.RCol, horizontal.RMCol * matrix.RCol, horizontal.RCol * matrix.RCol));    // Fourth Column
     }
   };
-
-  ////////////////////////////////////////////////////////////
-  ///// Matrix4 And Scalar ///////////////////////////////////
-  ////////////////////////////////////////////////////////////
-
-  Matrix4 operator*(const Scalar scalar, const Matrix4 &matrix)
-  {
-    return matrix * scalar;
-  }
 
 } // namespace Apollo
 

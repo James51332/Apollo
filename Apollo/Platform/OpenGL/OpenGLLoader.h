@@ -20,6 +20,7 @@ extern "C"
   typedef unsigned char GLubyte;
   typedef char GLchar;
   typedef long int GLsizeiptr;
+  typedef signed int GLsint;
 
 #define GL_DEPTH_BUFFER_BIT 0x00000100
 #define GL_STENCIL_BUFFER_BIT 0x00000400
@@ -84,7 +85,9 @@ extern "C"
   GL_FUNC(GLvoid, glGetProgramInfoLog, GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog)         \
   GL_FUNC(GLvoid, glUseProgram, GLuint v0)                                                                        \
   GL_FUNC(GLvoid, glDeleteProgram, GLuint)                                                                        \
-  GL_FUNC(GLvoid, glDrawElements, GLenum mode, GLsizei count, GLenum type, const GLvoid *indices)
+  GL_FUNC(GLvoid, glDrawElements, GLenum mode, GLsizei count, GLenum type, const GLvoid *indices)                 \
+  GL_FUNC(GLsint, glGetUniformLocation, GLuint program, const GLchar *name);                                      \
+  GL_FUNC(GLvoid, glUniformMatrix4fv, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)
 
 #define GL_FUNC(ret, name, ...)           \
   typedef ret (*name##proc)(__VA_ARGS__); \
