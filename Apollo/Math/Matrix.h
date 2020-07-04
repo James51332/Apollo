@@ -51,6 +51,12 @@ namespace Apollo
                         Vector3(LeftCol.Z, MiddleCol.Z, RightCol.Z)); // Third Column
     }
 
+    ///// Determinant //////////////////////////////////////////
+    Scalar Determinant() const
+    {
+      return (LeftCol.X * ((MiddleCol.Y * RightCol.Z) - (RightCol.Y * MiddleCol.Z))) - (MiddleCol.X * ((LeftCol.Y * RightCol.Z) - (RightCol.Y * LeftCol.Z))) + (RightCol.X * ((LeftCol.Y * MiddleCol.Z) - (MiddleCol.Y * LeftCol.Z)));
+    }
+
     ///// Addition /////////////////////////////////////////////
     Matrix3 Add(const Matrix3 &matrix) const
     {
@@ -160,6 +166,25 @@ namespace Apollo
     bool operator!=(const Matrix4 &matrix) const
     {
       return !Equals(matrix);
+    }
+
+    ///// Determinant //////////////////////////////////////////
+    Scalar Determinant() const
+    {
+      Scalar l, lm, rm, r;
+
+      l = (Matrix3(Vector3(LMCol.Y, LMCol.Z, LMCol.W), Vector3(RMCol.Y, RMCol.Z, RMCol.W), Vector3(RCol.Y, RCol.Z, RCol.W))).Determinant();
+      lm = (Matrix3(Vector3(LCol.Y, LCol.Z, LCol.W), Vector3(RMCol.Y, RMCol.Z, RMCol.W), Vector3(RCol.Y, RCol.Z, RCol.W))).Determinant();
+      rm = (Matrix3(Vector3(LCol.Y, LMCol.Z, LMCol.W), Vector3(LMCol.Y, LMCol.Z, LMCol.W), Vector3(RCol.Y, RCol.Z, RCol.W))).Determinant();
+      r = (Matrix3(Vector3(LCol.Y, LMCol.Z, LMCol.W), Vector3(LMCol.Y, LMCol.Z, LMCol.W), Vector3(RMCol.Y, RMCol.Z, RMCol.W))).Determinant();
+
+      return l - lm + rm - r;
+    }
+
+    ///// Inverse //////////////////////////////////////////
+    Matrix4 Inverse() const
+    {
+      return Transpose() * (1 / Determinant());
     }
 
     ///// Transposition ////////////////////////////////////////

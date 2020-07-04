@@ -15,12 +15,14 @@ public:
     std::string vertexSource = R"(#version 330 core
 
     layout(location = 0) in vec3 a_Pos;
+    layout(location = 1) in vec3 a_Color;
+    
     out vec3 v_Color;
 
     uniform mat4 u_ProjectionView;
 
     void main() {
-      v_Color = vec3(1.0, 1.0, 1.0);
+      v_Color = a_Color;
       gl_Position = vec4(a_Pos, 1.0) * u_ProjectionView;
     })";
 
@@ -37,9 +39,14 @@ public:
     shader = Apollo::Shader::Create(vertexSource, fragmentSource);
     shader->Bind();
 
-    float vertices[] = {0.0f, 0.5f, 0.0f, 0.5f, -0.5f, 0.0f, -0.5f, -0.5f, 0.0f};
+    float vertices[] = {
+        0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
+        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f,
+        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f};
     Apollo::VertexBuffer *vertexBuffer = Apollo::VertexBuffer::Create(vertices, sizeof(vertices));
-    Apollo::BufferLayout layout = {{Apollo::ShaderDataType::Float3, "a_Pos"}};
+    Apollo::BufferLayout layout = {
+        {Apollo::ShaderDataType::Float3, "a_Pos"},
+        {Apollo::ShaderDataType::Float3, "a_Color"}};
     vertexBuffer->SetLayout(layout);
 
     uint32_t indices[] = {0, 1, 2};
@@ -48,10 +55,15 @@ public:
     vertexArray = Apollo::VertexArray::Create();
     vertexArray->AddVertexBuffer(vertexBuffer);
     vertexArray->SetIndexBuffer(indexBuffer);
+
+    Camera->SetRotation(rotate);
+    //Camera->SetPosition(Apollo::Vector3(0.5, 0.5, 0.0));
   }
 
   void Update() override
   {
+    Camera->SetRotation(rotate);
+    rotate++;
   }
 
   void Draw() override
@@ -73,6 +85,8 @@ public:
 private:
   Apollo::Shader *shader;
   Apollo::VertexArray *vertexArray;
+
+  float rotate = 0;
 };
 
 int main()
