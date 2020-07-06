@@ -1,9 +1,5 @@
 #include <Apollo/Apollo.h>
 #include <string>
-#include <iostream>
-#include <memory>
-
-#include "Math/Matrix.h"
 
 class Example : public Apollo::Game
 {
@@ -19,11 +15,9 @@ public:
     
     out vec3 v_Color;
 
-    uniform mat4 u_ProjectionView;
-
     void main() {
       v_Color = a_Color;
-      gl_Position = vec4(a_Pos, 1.0) * u_ProjectionView;
+      gl_Position = vec4(a_Pos, 1.0);
     })";
 
     std::string fragmentSource = R"(#version 330 core
@@ -39,14 +33,13 @@ public:
     shader = Apollo::Shader::Create(vertexSource, fragmentSource);
     shader->Bind();
 
-    float vertices[] = {
-        0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
-        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f,
-        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f};
+    float vertices[] = {0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f};
     Apollo::VertexBuffer *vertexBuffer = Apollo::VertexBuffer::Create(vertices, sizeof(vertices));
+
     Apollo::BufferLayout layout = {
-        {Apollo::ShaderDataType::Float3, "a_Pos"},
-        {Apollo::ShaderDataType::Float3, "a_Color"}};
+        {Apollo::ShaderDataType::Float3, "a_Pos"},  // Position
+        {Apollo::ShaderDataType::Float3, "a_Color"} // Color
+    };
     vertexBuffer->SetLayout(layout);
 
     uint32_t indices[] = {0, 1, 2};
@@ -55,26 +48,21 @@ public:
     vertexArray = Apollo::VertexArray::Create();
     vertexArray->AddVertexBuffer(vertexBuffer);
     vertexArray->SetIndexBuffer(indexBuffer);
-
-    Camera->SetRotation(rotate);
-    //Camera->SetPosition(Apollo::Vector3(0.5, 0.5, 0.0));
   }
 
   void Update() override
   {
-    Camera->SetRotation(rotate);
-    rotate++;
   }
 
   void Draw() override
   {
+    //Clear the Screen
     Apollo::RenderCommand::ClearColor(0.2f, 0.2f, 0.2f);
     Apollo::RenderCommand::Clear();
 
-    Apollo::Renderer::Begin(Camera);
-
+    //TODO: Implement Camera and True Batch Renderer
+    Apollo::Renderer::Begin();
     Apollo::Renderer::Submit(shader, vertexArray);
-
     Apollo::Renderer::End();
   }
 
@@ -85,14 +73,13 @@ public:
 private:
   Apollo::Shader *shader;
   Apollo::VertexArray *vertexArray;
-
-  float rotate = 0;
 };
 
 int main()
 {
   Example *instance = new Example();
   instance->Run();
+  delete instance;
 
   return 0;
 }

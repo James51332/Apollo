@@ -4,17 +4,14 @@
 namespace Apollo
 {
   RenderingApi::Api Renderer::m_Api = RenderingApi::Api::OpenGL;
-  Matrix4 Renderer::m_ProjectionView = Apollo::Matrix4(1.0f);
 
-  void Renderer::Begin(OrthographicCamera *camera)
+  void Renderer::Begin()
   {
-    m_ProjectionView = camera->GetProjectionViewMatrix();
   }
 
   void Renderer::Submit(Shader *shader, VertexArray *vertexArray)
   {
     shader->Bind();
-    shader->UploadMat4("u_ProjectionView", m_ProjectionView);
     RenderCommand::DrawIndexed(vertexArray);
   }
 

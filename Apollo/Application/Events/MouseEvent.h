@@ -2,7 +2,7 @@
 #define MouseEvent_h
 
 #include "Events/Event.h"
-#include "Input/KeyCodes.h"
+#include "Application/KeyCodes.h"
 
 namespace Apollo
 {

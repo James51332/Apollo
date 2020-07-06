@@ -15,8 +15,6 @@ namespace Apollo
     void Bind();
     void Unbind();
 
-    void UploadMat4(const std::string &name, Matrix4 &matrix);
-
   private:
     unsigned int m_RendererID;
   };

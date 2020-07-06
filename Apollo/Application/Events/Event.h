@@ -4,6 +4,8 @@
 // Modified version of Hazel Engines event system
 // Credit to Yan Chernokov at https://github.com/TheCherno/Hazel
 
+#include <sstream>
+
 namespace Apollo
 {
 

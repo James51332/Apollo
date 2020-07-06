@@ -65,11 +65,4 @@ namespace Apollo
   {
     glUseProgram(0);
   }
-
-  void OpenGLShader::UploadMat4(const std::string &name, Matrix4 &matrix)
-  {
-    GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-    glUniformMatrix4fv(location, 1, GL_FALSE, matrix.GetUniformArray());
-  }
-
 } // namespace Apollo

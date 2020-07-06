@@ -10,7 +10,6 @@ Apollo/Renderer/Buffer.cpp \
 Apollo/Renderer/VertexArray.cpp \
 Apollo/Renderer/RenderCommand.cpp \
 Apollo/Renderer/Renderer.cpp \
-Apollo/Renderer/Camera.cpp \
 Apollo/Platform/Cocoa/CocoaApplication.mm \
 Apollo/Platform/Cocoa/CocoaWindow.mm \
 Apollo/Platform/Cocoa/CocoaContext.mm \
@@ -18,8 +17,7 @@ Apollo/Platform/OpenGL/OpenGLLoader.cpp \
 Apollo/Platform/OpenGL/OpenGLShader.cpp \
 Apollo/Platform/OpenGL/OpenGLBuffer.cpp \
 Apollo/Platform/OpenGL/OpenGLVertexArray.cpp \
-Apollo/Platform/OpenGL/OpenGLRenderingApi.cpp \
-Apollo/Math/Operator.cpp
+Apollo/Platform/OpenGL/OpenGLRenderingApi.cpp
 
 SANDBOXFILES =\
 Sandbox/Example.cpp
