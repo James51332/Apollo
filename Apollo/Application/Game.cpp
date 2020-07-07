@@ -6,6 +6,7 @@ namespace Apollo
 {
 
   Game::Game()
+      : Camera(-1.6, 1.6, -0.9, 0.9)
   {
     m_Application = Application::Create();
   }

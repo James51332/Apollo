@@ -10,6 +10,7 @@ Apollo/Renderer/Buffer.cpp \
 Apollo/Renderer/VertexArray.cpp \
 Apollo/Renderer/RenderCommand.cpp \
 Apollo/Renderer/Renderer.cpp \
+Apollo/Renderer/Camera.cpp \
 Apollo/Platform/Cocoa/CocoaApplication.mm \
 Apollo/Platform/Cocoa/CocoaWindow.mm \
 Apollo/Platform/Cocoa/CocoaContext.mm \

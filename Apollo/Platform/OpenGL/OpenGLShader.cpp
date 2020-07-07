@@ -65,4 +65,11 @@ namespace Apollo
   {
     glUseProgram(0);
   }
+
+  void OpenGLShader::UploadMatrix4(const std::string &name, const Matrix4 &matrix)
+  {
+    glUseProgram(m_RendererID);
+    GLint id = glGetUniformLocation(m_RendererID, "u_Camera");
+    glUniformMatrix4fv(id, 1, GL_FALSE, matrix.GetUniformPointer());
+  }
 } // namespace Apollo

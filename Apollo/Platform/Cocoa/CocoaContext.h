@@ -19,7 +19,11 @@ namespace Apollo
 
     virtual void Update() = 0;
     virtual void SetWindow(void *window) = 0;
-    virtual void SetCallback(const Window::EventCallbackFn &callback) = 0;
+    
+    void SetCallback(const Window::EventCallbackFn &callback);
+
+  protected:
+    void *m_View;
   };
 
   ////////////////////////////////////////////////////////////
@@ -34,10 +38,8 @@ namespace Apollo
 
     void Update();
     void SetWindow(void *window);
-    void SetCallback(const Window::EventCallbackFn &callback);
 
   private:
-    void *m_View;
     void *m_Context;
   };
 

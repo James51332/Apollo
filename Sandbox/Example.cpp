@@ -1,12 +1,15 @@
 #include <Apollo/Apollo.h>
 #include <string>
 
+#include "Platform/OpenGL/OpenGLLoader.h"
+
 class Example : public Apollo::Game
 {
 public:
   void Initialize() override
   {
     WindowDescription = Apollo::WindowDescription(1280, 720, "Example");
+    glViewport(0, 0, 1280, 720);
 
     std::string vertexSource = R"(#version 330 core
 
@@ -15,9 +18,11 @@ public:
     
     out vec3 v_Color;
 
+    uniform mat4 u_Camera;
+
     void main() {
       v_Color = a_Color;
-      gl_Position = vec4(a_Pos, 1.0);
+      gl_Position = vec4(a_Pos, 1.0) * u_Camera;
     })";
 
     std::string fragmentSource = R"(#version 330 core
@@ -33,16 +38,20 @@ public:
     shader = Apollo::Shader::Create(vertexSource, fragmentSource);
     shader->Bind();
 
-    float vertices[] = {0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f};
+    float vertices[] = {
+        0.5f, 0.5f, 0.0f,   // Top Right
+        0.5f, -0.5f, 0.0f,  // Bottom Right
+        -0.5f, -0.5f, 0.0f, // Bottom Left
+        -0.5f, 0.5f, 0.0f   // Top Left
+    };
     Apollo::VertexBuffer *vertexBuffer = Apollo::VertexBuffer::Create(vertices, sizeof(vertices));
 
     Apollo::BufferLayout layout = {
-        {Apollo::ShaderDataType::Float3, "a_Pos"},  // Position
-        {Apollo::ShaderDataType::Float3, "a_Color"} // Color
+        {Apollo::ShaderDataType::Float3, "a_Pos"}, // Position
     };
     vertexBuffer->SetLayout(layout);
 
-    uint32_t indices[] = {0, 1, 2};
+    uint32_t indices[] = {0, 1, 2, 0, 2, 3};
     Apollo::IndexBuffer *indexBuffer = Apollo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
     vertexArray = Apollo::VertexArray::Create();
@@ -52,6 +61,8 @@ public:
 
   void Update() override
   {
+    Camera.SetRotation(rotate);
+    rotate++;
   }
 
   void Draw() override
@@ -60,8 +71,8 @@ public:
     Apollo::RenderCommand::ClearColor(0.2f, 0.2f, 0.2f);
     Apollo::RenderCommand::Clear();
 
-    //TODO: Implement Camera and True Batch Renderer
-    Apollo::Renderer::Begin();
+    //TODO: Implement True Batch Renderer
+    Apollo::Renderer::Begin(Camera);
     Apollo::Renderer::Submit(shader, vertexArray);
     Apollo::Renderer::End();
   }
@@ -73,6 +84,8 @@ public:
 private:
   Apollo::Shader *shader;
   Apollo::VertexArray *vertexArray;
+
+  float rotate = 0;
 };
 
 int main()
