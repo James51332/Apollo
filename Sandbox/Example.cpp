@@ -1,15 +1,12 @@
 #include <Apollo/Apollo.h>
 #include <string>
 
-#include "Platform/OpenGL/OpenGLLoader.h"
-
 class Example : public Apollo::Game
 {
 public:
   void Initialize() override
   {
     WindowDescription = Apollo::WindowDescription(1280, 720, "Example");
-    glViewport(0, 0, 1280, 720);
 
     std::string vertexSource = R"(#version 330 core
 
