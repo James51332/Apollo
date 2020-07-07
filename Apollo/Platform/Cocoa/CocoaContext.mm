@@ -5,8 +5,10 @@
 #include "Application/Events/KeyEvent.h"
 #include "Application/Events/Event.h"
 #include "Application/Events/ApplicationEvent.h"
+#include "Application/Events/MouseEvent.h"
 
 #include <Cocoa/Cocoa.h>
+#include <iostream>
 
 @interface ApolloView : NSView
 {
@@ -19,8 +21,91 @@
 
 @implementation ApolloView
 
-- (void) setCallback:(Apollo::Window::EventCallbackFn) handle {
+- (void) setCallback:(Apollo::Window::EventCallbackFn) handle 
+{
   callback = handle;
+}
+
+- (void) mouseDown:(NSEvent *)event
+{
+  if (callback != nullptr) 
+  {
+    Apollo::MouseButtonPressedEvent e(Apollo::Mouse::Left);
+    callback(e);
+  }
+}
+
+- (void) mouseUp:(NSEvent *)event
+{
+  if (callback != nullptr) 
+  {
+    Apollo::MouseButtonReleasedEvent e(Apollo::Mouse::Left);
+    callback(e);
+  }
+}
+
+- (void) mouseMoved:(NSEvent *)event
+{
+  if (callback != nullptr)
+  {
+    Apollo::MouseMovedEvent e([event locationInWindow].x, [event locationInWindow].y);
+    callback(e);
+  }
+}
+
+- (void) rightMouseDown:(NSEvent *)event
+{
+  [super rightMouseDown:event];
+
+  if (callback != nullptr)
+  {
+    Apollo::MouseButtonPressedEvent e(Apollo::Mouse::Right);
+    callback(e);
+  }
+}
+
+- (void) rightMightDragged:(NSEvent *)event
+{
+  [self mouseMoved: event];
+}
+
+- (void) rightMouseUp:(NSEvent *)event
+{
+  if (callback != nullptr)
+  {
+    Apollo::MouseButtonReleasedEvent e(Apollo::Mouse::Right);
+    callback(e);
+  }
+}
+
+// TODO: Implement Other Mouse Buttons
+// - (void) otherMouseDown:(NSEvent *)event
+// {
+//   if (callback != nullptr)
+//   {
+//   }
+// }
+
+// - (void) outherMouseDragged:(NSEvent *)event
+// {
+//   if (callback != nullptr)
+//   {
+//   }
+// }
+
+// - (void) otherMouseUp:(NSEvent *)event
+// {
+//   if (callback != nullptr)
+//   {
+//   }
+// }
+
+// TODO: Implement Scroll Wheel
+- (void) scrollWheel:(NSEvent *)event
+{
+  if (callback != nullptr)
+  {
+  }
 }
 
 - (void) keyDown:(NSEvent *)event
@@ -38,6 +123,15 @@
   {
     Apollo::KeyReleasedEvent e(Apollo::CocoaKeyCodeToApolloKey([event keyCode]));
     callback(e);
+  }
+}
+
+// TODO: Store Flags and Detect Changes
+- (void) flagsChanged:(NSEvent *)event
+{
+  if (callback != nullptr)
+  {
+
   }
 }
 

@@ -48,7 +48,7 @@ namespace Apollo
     TAB,
     GRAVE,
     MINUS,
-    PLUS,
+    EQUALS,
     SLASH,
     BACKSLASH,
     BACKSPACE,
@@ -199,8 +199,8 @@ namespace Apollo
     case Key::MINUS:
       return "-";
       break;
-    case Key::PLUS:
-      return "+";
+    case Key::EQUALS:
+      return "=";
       break;
     case Key::SLASH:
       return "/";
@@ -263,6 +263,11 @@ namespace Apollo
       return "F12";
       break;
     }
+  }
+
+  inline std::ostream &operator<<(std::ostream &os, const Key &key)
+  {
+    return os << KeyToString(key);
   }
 
 } // namespace Apollo

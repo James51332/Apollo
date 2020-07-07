@@ -1,13 +1,17 @@
 #include "CocoaWindow.h"
+#include "CocoaContext.h"
+
+#include "Application/Events/ApplicationEvent.h"
 
 #include <Cocoa/Cocoa.h>
 
-#include "CocoaContext.h"
 
 @interface WindowDelegate : NSObject <NSWindowDelegate> {
   bool *open;
+  Apollo::Window::EventCallbackFn callback;
 }
 - (id) init:(bool *)handle;
+- (void) setEventCallback:(Apollo::Window::EventCallbackFn)handle;
 @end
 
 @implementation WindowDelegate
@@ -16,9 +20,35 @@
  return self;
 }
 
-- (BOOL) windowShouldClose:(NSWindow *)window {
-  (*open) = false;
+- (void) setEventCallback:(Apollo::Window::EventCallbackFn)handle
+{
+  callback = handle;
+}
+
+- (BOOL) windowShouldClose:(NSWindow *)window 
+{
+  if (open != nullptr)
+    (*open) = false;
+  
+  if (callback != nullptr)
+  {
+    Apollo::WindowCloseEvent e;
+    callback(e);
+  }
+  
   return YES;
+}
+
+- (void) windowDidResize:(NSNotification *)notification
+{
+  if (callback != nullptr)
+  {
+    // HACK: get content rect size from within the frame of the window
+    NSSize size = [[notification object] contentRectForFrameRect: [[notification object] frame]].size;
+    
+    Apollo::WindowResizeEvent e(size.width, size.height);
+    callback(e);
+  }
 }
 @end
 
@@ -42,6 +72,8 @@ CocoaWindow::CocoaWindow(const WindowDescription &desc) {
 
   [(NSWindow *)m_Object center];
   [(NSWindow *)m_Object setTitle: @(desc.Title.c_str())];
+
+  [(NSWindow *)m_Object setAcceptsMouseMovedEvents: YES];
   
   m_Delegate = [[WindowDelegate alloc] init: &m_Open];
   [(NSWindow *)m_Object setDelegate: (id<NSWindowDelegate>)m_Delegate];
@@ -86,6 +118,7 @@ void CocoaWindow::SetDesc(const WindowDescription &desc) {
 void CocoaWindow::SetEventCallback(const EventCallbackFn &callback)
 {
   m_Callback = callback;
+  [(WindowDelegate *)m_Delegate setEventCallback: callback];
   ((CocoaContext *) m_Context)->SetCallback(callback);
 }
 

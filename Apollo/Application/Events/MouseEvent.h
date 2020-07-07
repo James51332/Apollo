@@ -1,8 +1,8 @@
 #ifndef MouseEvent_h
 #define MouseEvent_h
 
-#include "Events/Event.h"
-#include "Application/KeyCodes.h"
+#include "Event.h"
+#include "Application/MouseCodes.h"
 
 namespace Apollo
 {
@@ -51,50 +51,50 @@ namespace Apollo
 		float m_XOffset, m_YOffset;
 	};
 
-	// class MouseButtonEvent : public Event
-	// {
-	// public:
-	// 	inline MouseCode GetMouseButton() const { return m_Button; }
+	class MouseButtonEvent : public Event
+	{
+	public:
+		inline Mouse GetMouseButton() const { return m_Button; }
 
-	// 	EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
-	// protected:
-	// 	MouseButtonEvent(MouseCode button)
-	// 			: m_Button(button) {}
+		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+	protected:
+		MouseButtonEvent(Mouse button)
+				: m_Button(button) {}
 
-	// 	//MouseCode m_Button;
-	// };
+		Mouse m_Button;
+	};
 
-	// class MouseButtonPressedEvent : public MouseButtonEvent
-	// {
-	// public:
-	// 	MouseButtonPressedEvent(MouseCode button)
-	// 			: MouseButtonEvent(button) {}
+	class MouseButtonPressedEvent : public MouseButtonEvent
+	{
+	public:
+		MouseButtonPressedEvent(Mouse button)
+				: MouseButtonEvent(button) {}
 
-	// 	std::string ToString() const override
-	// 	{
-	// 		std::stringstream ss;
-	// 		ss << "MouseButtonPressedEvent: " << m_Button;
-	// 		return ss.str();
-	// 	}
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MouseButtonPressedEvent: " << MouseToString(m_Button);
+			return ss.str();
+		}
 
-	// 	EVENT_CLASS_TYPE(MouseButtonPressed)
-	// };
+		EVENT_CLASS_TYPE(MouseButtonPressed)
+	};
 
-	// class MouseButtonReleasedEvent : public MouseButtonEvent
-	// {
-	// public:
-	// 	MouseButtonReleasedEvent(MouseCode button)
-	// 			: MouseButtonEvent(button) {}
+	class MouseButtonReleasedEvent : public MouseButtonEvent
+	{
+	public:
+		MouseButtonReleasedEvent(Mouse button)
+				: MouseButtonEvent(button) {}
 
-	// 	std::string ToString() const override
-	// 	{
-	// 		std::stringstream ss;
-	// 		ss << "MouseButtonReleasedEvent: " << m_Button;
-	// 		return ss.str();
-	// 	}
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MouseButtonReleasedEvent: " << MouseToString(m_Button);
+			return ss.str();
+		}
 
-	// 	EVENT_CLASS_TYPE(MouseButtonReleased)
-	// };
+		EVENT_CLASS_TYPE(MouseButtonReleased)
+	};
 
 } // namespace Apollo
 

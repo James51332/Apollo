@@ -11,14 +11,13 @@ public:
     std::string vertexSource = R"(#version 330 core
 
     layout(location = 0) in vec3 a_Pos;
-    layout(location = 1) in vec3 a_Color;
     
     out vec3 v_Color;
 
     uniform mat4 u_Camera;
 
     void main() {
-      v_Color = a_Color;
+      v_Color = vec3(1.0, 1.0, 1.0);
       gl_Position = vec4(a_Pos, 1.0) * u_Camera;
     })";
 
