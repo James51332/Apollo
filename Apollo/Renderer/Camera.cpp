@@ -20,6 +20,16 @@ namespace Apollo
   {
   }
 
+  void OrthographicCamera::SetBounds(float left, float right, float bottom, float top)
+  {
+    m_Projection = Matrix4(Vector4(2 / (right - left), 0, 0, -((right + left) / (right - left))),
+                           Vector4(0, 2 / (top - bottom), 0, -((top + bottom) / (top - bottom))),
+                           Vector4(0, 0, 1, 0),
+                           Vector4(0, 0, 0, 1));
+
+    CalculateProjectionView();
+  }
+
   void OrthographicCamera::CalculateProjectionView()
   {
     Matrix4 translation = Matrix4(Vector4(1, 0, 0, -m_Position.X),

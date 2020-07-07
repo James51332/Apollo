@@ -13,6 +13,8 @@ namespace Apollo
     OrthographicCamera(float left, float right, float bottom, float top);
     ~OrthographicCamera();
 
+    void SetBounds(float left, float right, float bottom, float top);
+
     const Matrix4 &GetProjectionViewMatrix() const { return m_ProjectionView; }
 
     void SetPosition(const Vector3 &position)

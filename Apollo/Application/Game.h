@@ -3,6 +3,8 @@
 
 #include "Application/Application.h"
 #include "Application/Window.h"
+#include "Application/Events/ApplicationEvent.h"
+
 #include "Renderer/Camera.h"
 
 namespace Apollo
@@ -20,7 +22,9 @@ namespace Apollo
     virtual void Deinitialize();
 
     void Run();
+
     void OnEvent(Event &event);
+    bool OnWindowResize(WindowResizeEvent &event);
 
   private:
     Application *m_Application;

@@ -39,16 +39,15 @@
   return YES;
 }
 
-- (void) windowDidResize:(NSNotification *)notification
+- (NSSize) windowWillResize:(NSWindow *)window toSize:(NSSize)size
 {
   if (callback != nullptr)
-  {
-    // HACK: get content rect size from within the frame of the window
-    NSSize size = [[notification object] contentRectForFrameRect: [[notification object] frame]].size;
-    
+  {  
     Apollo::WindowResizeEvent e(size.width, size.height);
     callback(e);
   }
+
+  return size;
 }
 @end
 
