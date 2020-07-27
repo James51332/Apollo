@@ -2,10 +2,10 @@
 #include "CocoaInput.h"
 
 #include "Application/Window.h"
-#include "Application/Events/KeyEvent.h"
-#include "Application/Events/Event.h"
-#include "Application/Events/ApplicationEvent.h"
-#include "Application/Events/MouseEvent.h"
+#include "Events/KeyEvent.h"
+#include "Events/Event.h"
+#include "Events/ApplicationEvent.h"
+#include "Events/MouseEvent.h"
 
 #include <Cocoa/Cocoa.h>
 #include <iostream>

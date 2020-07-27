@@ -12,7 +12,7 @@ namespace Apollo
   {
     RenderingContext *ctxt = nullptr;
 
-#ifdef APOLLO_COCOA
+#ifdef APOLLO_MACOS
     ctxt = CocoaContext::Create(api);
 #endif
 

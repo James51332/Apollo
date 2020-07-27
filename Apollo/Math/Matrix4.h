@@ -20,7 +20,7 @@ namespace Apollo
         : Matrix4({scalar, 0.0, 0.0, 0.0}, {0.0, scalar, 0.0, 0.0}, {0.0, 0.0, scalar, 0.0}, {0.0, 0.0, 0.0, scalar}) {}
 
     ///// Access Operations ////////////////////////////////////
-    inline const Vector4 &operator[](int index) const
+    inline Vector4 &operator[](int index)
     {
       switch (index)
       {
@@ -36,7 +36,21 @@ namespace Apollo
         return RowX;
       }
     }
-    inline const Scalar *GetUniformPointer() const { return &(Elements[0]); }
+    inline Scalar *GetUniformPointer()
+    {
+      SetArrayValues();
+      return &(Elements[0]);
+    }
+
+    ///// Assignment Operations /////////////////////////////////
+    inline void operator=(const Matrix4 &m)
+    {
+      RowX = m.RowX;
+      RowY = m.RowY;
+      RowZ = m.RowZ;
+      RowW = m.RowW;
+      SetArrayValues();
+    }
 
     ///// Matrix Operations ////////////////////////////////////
     inline const Matrix4 Transpose() const
@@ -56,12 +70,10 @@ namespace Apollo
 
     inline Matrix4 Multiply(const Matrix4 &matrix) const
     {
-      Matrix4 mat = matrix.Transpose();
-
-      return Matrix4(Vector4(RowX * matrix.RowX, RowX * matrix.RowY, RowX * matrix.RowZ, RowX * matrix.RowW),
-                     Vector4(RowY * matrix.RowX, RowY * matrix.RowY, RowY * matrix.RowZ, RowY * matrix.RowW),
-                     Vector4(RowZ * matrix.RowX, RowZ * matrix.RowY, RowZ * matrix.RowZ, RowZ * matrix.RowW),
-                     Vector4(RowW * matrix.RowX, RowW * matrix.RowY, RowW * matrix.RowZ, RowW * matrix.RowW));
+      return Matrix4(Vector4(RowX * matrix.RowX, RowY * matrix.RowX, RowZ * matrix.RowX, RowW * matrix.RowX),
+                     Vector4(RowX * matrix.RowY, RowY * matrix.RowY, RowZ * matrix.RowY, RowW * matrix.RowY),
+                     Vector4(RowX * matrix.RowZ, RowY * matrix.RowZ, RowZ * matrix.RowZ, RowW * matrix.RowZ),
+                     Vector4(RowX * matrix.RowW, RowY * matrix.RowW, RowZ * matrix.RowW, RowW * matrix.RowW));
     }
     inline Matrix4 operator*(const Matrix4 &matrix) const { return Multiply(matrix); }
 

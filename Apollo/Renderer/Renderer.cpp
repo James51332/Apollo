@@ -13,8 +13,8 @@ namespace Apollo
 
   void Renderer::Submit(Shader *shader, VertexArray *vertexArray)
   {
-    shader->UploadMatrix4("u_Camera", m_ProjectionView);
     shader->Bind();
+    shader->UploadMatrix4("u_Camera", m_ProjectionView.GetUniformPointer());
     RenderCommand::DrawIndexed(vertexArray);
   }
 

@@ -1,7 +1,7 @@
 #include "CocoaWindow.h"
 #include "CocoaContext.h"
 
-#include "Application/Events/ApplicationEvent.h"
+#include "Events/ApplicationEvent.h"
 
 #include <Cocoa/Cocoa.h>
 

@@ -3,6 +3,7 @@
 
 // Game (Every Game will subclass this)
 #include "Application/Game.h"
+#include "Application/EntryPoint.h"
 
 // Renderer Data Types
 #include "Renderer/Shader.h"

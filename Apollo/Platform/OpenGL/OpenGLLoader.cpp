@@ -1,6 +1,6 @@
 #include "OpenGLLoader.h"
 
-#ifdef APOLLO_COCOA
+#ifdef APOLLO_MACOS
 #include <dlfcn.h>
 #endif
 
@@ -13,7 +13,7 @@ GL_FUNCS
 
 void InitializeOpenGL()
 {
-#ifdef APOLLO_COCOA
+#ifdef APOLLO_MACOS
 
   void *libgl = dlopen("/System/Library/Framework/OpenGL.framework/OpenGL", RTLD_LAZY | RTLD_LOCAL);
 #define GL_FUNC(ret, name, ...) \

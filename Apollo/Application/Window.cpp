@@ -7,7 +7,7 @@ namespace Apollo
 
   Window *Window::Create(const WindowDescription &desc)
   {
-#ifdef APOLLO_COCOA
+#ifdef APOLLO_MACOS
     CocoaWindow *window = new CocoaWindow(desc);
     window->SetContext(RenderingContext::Create(desc.ContextApi));
     return window;

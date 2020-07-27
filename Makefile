@@ -21,14 +21,14 @@ Apollo/Platform/OpenGL/OpenGLVertexArray.cpp \
 Apollo/Platform/OpenGL/OpenGLRenderingApi.cpp
 
 SANDBOXFILES =\
-Sandbox/Example.cpp
+Sandbox/SandboxApp.cpp
 
 CWD = $(shell pwd)/
 
 COCOAFLAGS =\
 -framework Cocoa \
 -framework OpenGL \
--D APOLLO_COCOA \
+-D APOLLO_MACOS \
 -D GL_SILENCE_DEPRECATION \
 -Wno-deprecated-declarations
 

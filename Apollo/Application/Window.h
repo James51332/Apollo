@@ -5,7 +5,7 @@
 #include <functional>
 
 #include "Renderer/RenderingContext.h"
-#include "Application/Events/Event.h"
+#include "Events/Event.h"
 
 namespace Apollo
 {

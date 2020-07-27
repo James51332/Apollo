@@ -1,7 +1,8 @@
 #include <Apollo/Apollo.h>
 #include <string>
+#include <iostream>
 
-class Example : public Apollo::Game
+class SandboxApp : public Apollo::Game
 {
 public:
   void Initialize() override
@@ -57,8 +58,6 @@ public:
 
   void Update() override
   {
-    Camera.SetRotation(rotate);
-    rotate++;
   }
 
   void Draw() override
@@ -80,15 +79,9 @@ public:
 private:
   Apollo::Shader *shader;
   Apollo::VertexArray *vertexArray;
-
-  float rotate = 0;
 };
 
-int main()
+Apollo::Game *Apollo::CreateApplication()
 {
-  Example *instance = new Example();
-  instance->Run();
-  delete instance;
-
-  return 0;
+  return new SandboxApp();
 }

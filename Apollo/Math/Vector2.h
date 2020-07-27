@@ -19,7 +19,7 @@ namespace Apollo
         : Vector2(x, x) {}
 
     ///// Access Operations ////////////////////////////////////
-    inline const Scalar &operator[](int index) const { return Elements[index]; }
+    inline Scalar &operator[](int index) { return Elements[index]; }
     inline const Scalar *GetUniformPointer() const { return &(Elements[0]); }
 
     ///// Math Operations //////////////////////////////////////

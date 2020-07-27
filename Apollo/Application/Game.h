@@ -3,7 +3,7 @@
 
 #include "Application/Application.h"
 #include "Application/Window.h"
-#include "Application/Events/ApplicationEvent.h"
+#include "Events/ApplicationEvent.h"
 
 #include "Renderer/Camera.h"
 
