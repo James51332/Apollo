@@ -2,6 +2,7 @@
 #define Shader_h
 
 #include <string>
+#include <glm/glm.hpp>
 
 namespace Apollo
 {
@@ -14,6 +15,8 @@ namespace Apollo
 
     virtual void Bind() = 0;
     virtual void Unbind() = 0;
+
+    virtual void UploadMat4(const std::string &name, const glm::mat4 &matrix) = 0;
   };
 
 } // namespace Apollo

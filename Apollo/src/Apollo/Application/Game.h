@@ -4,6 +4,8 @@
 #include "Application/Application.h"
 #include "Application/Window.h"
 
+#include "Renderer/Camera.h"
+
 namespace Apollo
 {
 
@@ -25,6 +27,7 @@ namespace Apollo
     Window *m_Window;
 
   protected:
+    OrthographicCamera Camera;
     WindowDescription WindowDescription;
   };
 

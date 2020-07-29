@@ -6,20 +6,21 @@ extern "C"
 {
 #endif
 
-  //From glcorearb.h
-  typedef void GLvoid;
-  typedef unsigned int GLenum;
-  typedef float GLfloat;
-  typedef int GLint;
-  typedef int GLsizei;
-  typedef unsigned int GLbitfield;
-  typedef double GLdouble;
-  typedef unsigned int GLuint;
-  typedef unsigned char GLboolean;
-  typedef GLboolean GLbool;
-  typedef unsigned char GLubyte;
-  typedef char GLchar;
-  typedef long int GLsizeiptr;
+// From glcorearb.h
+typedef void GLvoid;
+typedef unsigned int GLenum;
+typedef float GLfloat;
+typedef int GLint;
+typedef int GLsizei;
+typedef unsigned int GLbitfield;
+typedef double GLdouble;
+typedef unsigned int GLuint;
+typedef unsigned char GLboolean;
+typedef GLboolean GLbool;
+typedef unsigned char GLubyte;
+typedef char GLchar;
+typedef long int GLsizeiptr;
+typedef int GLint;
 
 #define GL_DEPTH_BUFFER_BIT 0x00000100
 #define GL_STENCIL_BUFFER_BIT 0x00000400
@@ -83,6 +84,8 @@ extern "C"
   GL_FUNC(GLvoid, glGetProgramInfoLog, GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog)         \
   GL_FUNC(GLvoid, glUseProgram, GLuint v0)                                                                        \
   GL_FUNC(GLvoid, glDeleteProgram, GLuint)                                                                        \
+  GL_FUNC(GLint, glGetUniformLocation, GLuint program, const GLchar *name);                                       \
+  GL_FUNC(GLvoid, glUniformMatrix4fv, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value)   \
   GL_FUNC(GLvoid, glDrawElements, GLenum mode, GLsizei count, GLenum type, const GLvoid *indices)
 
 #define GL_FUNC(ret, name, ...)           \
