@@ -28,10 +28,6 @@ project "Apollo"
   {
     "%{prj.name}/vendor/glm"
   }
-      
-  postbuildcommands {
-    ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox/libApollo.a")
-  }
 
   filter "system:macosx"
     cppdialect "C++17"
@@ -82,7 +78,6 @@ project "Sandbox"
     {
       "Apollo",
       "Cocoa.framework",
-      "OpenGL.framework"
     }
 
   filter "system:macosx"

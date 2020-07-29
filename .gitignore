@@ -1,3 +1,5 @@
-*.DS_STORE
+.DS_STORE
 *.xcodeproj
 *.xcworkspace
+
+bin
