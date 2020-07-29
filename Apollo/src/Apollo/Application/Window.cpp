@@ -11,9 +11,9 @@ namespace Apollo
     CocoaWindow *window = new CocoaWindow(desc);
     window->SetContext(RenderingContext::Create(desc.ContextApi));
     return window;
-#else
-    return nullptr;
 #endif
+
+    return nullptr;
   }
 
   Window::~Window()

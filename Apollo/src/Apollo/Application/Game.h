@@ -3,9 +3,6 @@
 
 #include "Application/Application.h"
 #include "Application/Window.h"
-#include "Events/ApplicationEvent.h"
-
-#include "Renderer/Camera.h"
 
 namespace Apollo
 {
@@ -23,16 +20,12 @@ namespace Apollo
 
     void Run();
 
-    void OnEvent(Event &event);
-    bool OnWindowResize(WindowResizeEvent &event);
-
   private:
     Application *m_Application;
     Window *m_Window;
 
   protected:
     WindowDescription WindowDescription;
-    OrthographicCamera Camera;
   };
 
 } // namespace Apollo

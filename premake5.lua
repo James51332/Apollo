@@ -16,14 +16,21 @@ project "Apollo"
     "%{prj.name}/src/**.cpp",
     "%{prj.name}/src/**.mm",
     "%{prj.name}/src/**.h",
+    "%{prj.name}/vendor/glm/**.hpp",
+    "%{prj.name}/vendor/glm/**.inl"
   }
 
   includedirs {
-    "%{prj.name}/src/Apollo/"
+    "%{prj.name}/src/Apollo"
+  }
+
+  sysincludedirs
+  {
+    "%{prj.name}/vendor/glm"
   }
       
   postbuildcommands {
-    ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/libApollo.a")
+    ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox/libApollo.a")
   }
 
   filter "system:macosx"
@@ -57,17 +64,18 @@ project "Sandbox"
 
     files {
       "%{prj.name}/*.cpp",
-      "%{prj.name}/*.h"
-    }
-
-    sysincludedirs
-    {
-      "Apollo/src/"
+      "%{prj.name}/*.h",
     }
 
     includedirs
     {
-      "Apollo/src/Apollo/"
+      "Apollo/src/Apollo"
+    }
+
+    sysincludedirs
+    {
+      "Apollo/src",
+      "Apollo/vendor/glm"
     }
 
     links

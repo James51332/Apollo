@@ -9,7 +9,7 @@ namespace Apollo
   class CocoaWindow : public Window
   {
   public:
-    CocoaWindow(const WindowDescription &desc = WindowDescription());
+    CocoaWindow(const WindowDescription &desc);
     ~CocoaWindow();
 
     void Update();
@@ -20,8 +20,6 @@ namespace Apollo
 
     void SetDesc(const WindowDescription &desc);
     void Show();
-
-    void SetEventCallback(const EventCallbackFn &callback);
 
   private:
     void *m_Object;

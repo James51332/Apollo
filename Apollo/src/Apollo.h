@@ -2,14 +2,13 @@
 #define Apollo_h
 
 // Game (Every Game will subclass this)
-#include "Apollo/Application/Game.h"
-#include "Apollo/Application/EntryPoint.h"
+#include "Application/Game.h"
 
 // Renderer Data Types
-#include "Apollo/Renderer/Shader.h"
-#include "Apollo/Renderer/Buffer.h"
-#include "Apollo/Renderer/VertexArray.h"
-#include "Apollo/Renderer/RenderCommand.h"
-#include "Apollo/Renderer/Renderer.h"
+#include "Renderer/Shader.h"
+#include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
+#include "Renderer/RenderCommand.h"
+#include "Renderer/Renderer.h"
 
 #endif /* end of include guard: Apollo_h */

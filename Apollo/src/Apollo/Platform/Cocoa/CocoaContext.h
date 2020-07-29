@@ -2,7 +2,6 @@
 #define CocoaContext_h
 
 #include "Renderer/RenderingContext.h"
-#include "Application/Window.h"
 
 namespace Apollo
 {
@@ -19,11 +18,6 @@ namespace Apollo
 
     virtual void Update() = 0;
     virtual void SetWindow(void *window) = 0;
-    
-    void SetCallback(const Window::EventCallbackFn &callback);
-
-  protected:
-    void *m_View;
   };
 
   ////////////////////////////////////////////////////////////
@@ -40,6 +34,7 @@ namespace Apollo
     void SetWindow(void *window);
 
   private:
+    void *m_View;
     void *m_Context;
   };
 

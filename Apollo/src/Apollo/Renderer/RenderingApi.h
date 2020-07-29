@@ -11,12 +11,8 @@ namespace Apollo
   public:
     enum class Api
     {
-#ifdef APOLLO_MACOS
       None = 0,
       OpenGL
-#else
-      None = 0
-#endif
     };
 
   public:

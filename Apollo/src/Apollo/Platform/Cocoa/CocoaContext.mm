@@ -1,151 +1,6 @@
 #include "CocoaContext.h"
-#include "CocoaInput.h"
-
-#include "Application/Window.h"
-#include "Events/KeyEvent.h"
-#include "Events/Event.h"
-#include "Events/ApplicationEvent.h"
-#include "Events/MouseEvent.h"
 
 #include <Cocoa/Cocoa.h>
-#include <iostream>
-
-@interface ApolloView : NSView
-{
-  Apollo::Window::EventCallbackFn callback;
-}
-
-- (void) setCallback:(Apollo::Window::EventCallbackFn) handle;
-
-@end
-
-@implementation ApolloView
-
-- (void) setCallback:(Apollo::Window::EventCallbackFn) handle 
-{
-  callback = handle;
-}
-
-- (void) mouseDown:(NSEvent *)event
-{
-  if (callback != nullptr) 
-  {
-    Apollo::MouseButtonPressedEvent e(Apollo::Mouse::Left);
-    callback(e);
-  }
-}
-
-- (void) mouseUp:(NSEvent *)event
-{
-  if (callback != nullptr) 
-  {
-    Apollo::MouseButtonReleasedEvent e(Apollo::Mouse::Left);
-    callback(e);
-  }
-}
-
-- (void) mouseMoved:(NSEvent *)event
-{
-  if (callback != nullptr)
-  {
-    Apollo::MouseMovedEvent e([event locationInWindow].x, [event locationInWindow].y);
-    callback(e);
-  }
-}
-
-- (void) rightMouseDown:(NSEvent *)event
-{
-  [super rightMouseDown:event];
-
-  if (callback != nullptr)
-  {
-    Apollo::MouseButtonPressedEvent e(Apollo::Mouse::Right);
-    callback(e);
-  }
-}
-
-- (void) rightMightDragged:(NSEvent *)event
-{
-  [self mouseMoved: event];
-}
-
-- (void) rightMouseUp:(NSEvent *)event
-{
-  if (callback != nullptr)
-  {
-    Apollo::MouseButtonReleasedEvent e(Apollo::Mouse::Right);
-    callback(e);
-  }
-}
-
-// TODO: Implement Other Mouse Buttons
-// - (void) otherMouseDown:(NSEvent *)event
-// {
-//   if (callback != nullptr)
-//   {
-//   }
-// }
-
-// - (void) outherMouseDragged:(NSEvent *)event
-// {
-//   if (callback != nullptr)
-//   {
-//   }
-// }
-
-// - (void) otherMouseUp:(NSEvent *)event
-// {
-//   if (callback != nullptr)
-//   {
-//   }
-// }
-
-// TODO: Implement Scroll Wheel
-- (void) scrollWheel:(NSEvent *)event
-{
-  if (callback != nullptr)
-  {
-  }
-}
-
-- (void) keyDown:(NSEvent *)event
-{
-  if (callback != nullptr)
-  {
-    Apollo::KeyPressedEvent e(Apollo::CocoaKeyCodeToApolloKey([event keyCode]));
-    callback(e);
-  }
-}
-
-- (void) keyUp:(NSEvent *)event
-{
-  if (callback != nullptr)
-  {
-    Apollo::KeyReleasedEvent e(Apollo::CocoaKeyCodeToApolloKey([event keyCode]));
-    callback(e);
-  }
-}
-
-// TODO: Store Flags and Detect Changes
-- (void) flagsChanged:(NSEvent *)event
-{
-  if (callback != nullptr)
-  {
-
-  }
-}
-
-- (BOOL)canBecomeKeyView
-{
-    return YES;
-}
-
-- (BOOL)acceptsFirstResponder
-{
-    return YES;
-}
-
-@end
 
 namespace Apollo {
 
@@ -156,20 +11,16 @@ namespace Apollo {
 CocoaContext *CocoaContext::Create(RenderingApi::Api api) 
 {
   switch (api) {
-    case RenderingApi::Api::None: return nullptr; break;
     case RenderingApi::Api::OpenGL: return new CocoaOpenGLContext(); break;
-    default: return nullptr;
+    case RenderingApi::Api::None: break;
   }
+    
+  return nullptr;
 }
 
 CocoaContext::~CocoaContext() 
 {
 
-}
-
-void CocoaContext::SetCallback(const Window::EventCallbackFn &callback)
-{
-  [(ApolloView *)m_View setCallback: callback];
 }
 
 ////////////////////////////////////////////////////////////
@@ -178,8 +29,8 @@ void CocoaContext::SetCallback(const Window::EventCallbackFn &callback)
 
 CocoaOpenGLContext::CocoaOpenGLContext() 
 {
-  //ApolloView doesn't work properly if we don't init with a frame;
-  m_View = [[ApolloView alloc] initWithFrame: NSMakeRect(0.0, 0.0, 1.0, 1.0)];
+  //NSView doesn't work properly if we don't init with a frame;
+  m_View = [[NSView alloc] initWithFrame:NSMakeRect(0.0, 0.0, 800.0, 600.0)];
 
   NSOpenGLPixelFormatAttribute attributes[] = {
     NSOpenGLPFADepthSize, 32,
@@ -193,14 +44,28 @@ CocoaOpenGLContext::CocoaOpenGLContext()
   m_Context = [[NSOpenGLContext alloc] initWithFormat: pixelFormat
                                          shareContext: nil];
 
-  [(NSOpenGLContext *)m_Context setView: (ApolloView *)m_View];
+
+  // Supress setView Deprecation. We can
+  // use clang specific pragmas because
+  // this warning  will only show up for xcode
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+  [(NSOpenGLContext *)m_Context setView: (NSView *)m_View];
+#pragma clang diagnostic pop
+
   [(NSOpenGLContext *)m_Context makeCurrentContext];
 }
 
 CocoaOpenGLContext::~CocoaOpenGLContext() 
 {
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
   [(NSOpenGLContext *)m_Context setView: nil];
-  [(ApolloView *)m_View release];
+#pragma clang diagnostic pop
+    
+  [(NSView *)m_View release];
   m_View = nullptr;
 
   [(NSOpenGLContext *)m_Context release];
@@ -210,18 +75,14 @@ CocoaOpenGLContext::~CocoaOpenGLContext()
 void CocoaOpenGLContext::Update() 
 {
   [(NSOpenGLContext *)m_Context flushBuffer];
-  [(NSOpenGLContext *)m_Context update];
-  [(ApolloView *)m_View setNeedsDisplay: YES];
 }
 
 void CocoaOpenGLContext::SetWindow(void *window) 
 {
   NSSize size = [(NSWindow *)window contentRectForFrameRect: [(NSWindow *)window frame]].size;
-  [(ApolloView *)m_View setFrameSize: size];
-  [(NSOpenGLContext *)m_Context update];
+  [(NSView *)m_View setFrameSize: size];
 
-  [(NSWindow *)window setContentView: (ApolloView *)m_View];
-  [(NSWindow *)window makeFirstResponder: (ApolloView *)m_View];
+  [(NSWindow *)window setContentView: (NSView *)m_View];
 }
 
 } // namespace Apollo

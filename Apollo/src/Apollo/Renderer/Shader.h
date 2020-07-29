@@ -1,8 +1,6 @@
 #ifndef Shader_h
 #define Shader_h
 
-#include "Math/Matrix4.h"
-
 #include <string>
 
 namespace Apollo
@@ -16,8 +14,6 @@ namespace Apollo
 
     virtual void Bind() = 0;
     virtual void Unbind() = 0;
-
-    virtual void UploadMatrix4(const std::string &name, Scalar *matrix) = 0;
   };
 
 } // namespace Apollo
