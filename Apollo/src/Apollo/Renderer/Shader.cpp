@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "Platform/OpenGL/OpenGLShader.h"
+#include "OpenGL/OpenGLShader.h"
 
 namespace Apollo
 {

@@ -7,53 +7,42 @@ namespace Apollo
       : Camera(-1.6f, 1.6f, -0.9f, 0.9f)
   {
     m_Application = Application::Create();
+
+    m_Window = Window::Create();
   }
 
   Game::~Game()
   {
     delete m_Window;
+
+    m_Application->Terminate();
     delete m_Application;
   }
 
-  void Game::Initialize()
+  void Game::PushLayer(Layer *layer)
   {
-    m_Window = Window::Create();
+    m_LayerStack.PushLayer(layer);
   }
 
-  void Game::Update()
+  void Game::PushOverlay(Layer *overlay)
   {
-    m_Application->Update();
-  }
-
-  void Game::Draw()
-  {
-    m_Window->Update();
-  }
-
-  void Game::Deinitialize()
-  {
-    m_Application->Terminate();
+    m_LayerStack.PushOverlay(overlay);
   }
 
   void Game::Run()
   {
-    Game::Initialize();
-    Initialize();
-
     m_Window->SetDesc(WindowDescription);
     m_Window->Show();
 
     while (m_Window->IsOpen())
     {
-      Game::Update();
-      Update();
+      m_Application->Update();
 
-      Draw();
-      Game::Draw();
+      for (Layer *layer : m_LayerStack)
+        layer->OnUpdate();
+
+      m_Window->Update();
     }
-
-    Deinitialize();
-    Game::Deinitialize();
   }
 
 } // namespace Apollo

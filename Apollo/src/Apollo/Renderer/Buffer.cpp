@@ -1,5 +1,5 @@
 #include "Buffer.h"
-#include "Platform/OpenGL/OpenGLBuffer.h"
+#include "OpenGL/OpenGLBuffer.h"
 
 namespace Apollo
 {

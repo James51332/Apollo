@@ -1,6 +1,6 @@
 #include "RenderCommand.h"
 
-#include "Platform/OpenGL/OpenGLRenderingApi.h"
+#include "OpenGL/OpenGLRenderingApi.h"
 
 namespace Apollo
 {

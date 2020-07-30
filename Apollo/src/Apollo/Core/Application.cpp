@@ -1,6 +1,6 @@
 #include "Application.h"
 
-#include "Platform/Cocoa/CocoaApplication.h"
+#include "Cocoa/CocoaApplication.h"
 
 namespace Apollo
 {

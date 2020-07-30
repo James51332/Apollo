@@ -1,7 +1,7 @@
 #include "RenderingContext.h"
 
-#include "Platform/Cocoa/CocoaContext.h"
-#include "Platform/OpenGL/OpenGLLoader.h"
+#include "Cocoa/CocoaContext.h"
+#include "OpenGL/OpenGLLoader.h"
 
 #include <iostream>
 

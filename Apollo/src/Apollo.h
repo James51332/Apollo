@@ -11,4 +11,6 @@
 #include "Renderer/RenderCommand.h"
 #include "Renderer/Renderer.h"
 
+#include "Core/Layer.h"
+
 #endif /* end of include guard: Apollo_h */

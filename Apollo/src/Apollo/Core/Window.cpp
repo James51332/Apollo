@@ -1,6 +1,6 @@
 #include "Window.h"
 
-#include "Platform/Cocoa/CocoaWindow.h"
+#include "Cocoa/CocoaWindow.h"
 
 namespace Apollo
 {

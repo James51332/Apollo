@@ -1,5 +1,5 @@
 #include "VertexArray.h"
-#include "Platform/OpenGL/OpenGLVertexArray.h"
+#include "OpenGL/OpenGLVertexArray.h"
 
 namespace Apollo
 {
