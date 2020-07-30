@@ -2,7 +2,7 @@
 #define Apollo_h
 
 // Game (Every Game will subclass this)
-#include "Application/Game.h"
+#include "Core/Game.h"
 
 // Renderer Data Types
 #include "Renderer/Shader.h"

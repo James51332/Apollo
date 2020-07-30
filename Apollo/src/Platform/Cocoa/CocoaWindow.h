@@ -1,7 +1,7 @@
 #ifndef CocoaWindow_h
 #define CocoaWindow_h
 
-#include "Application/Window.h"
+#include "Core/Window.h"
 
 namespace Apollo
 {

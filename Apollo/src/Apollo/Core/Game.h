@@ -1,8 +1,8 @@
 #ifndef Game_h
 #define Game_h
 
-#include "Application/Application.h"
-#include "Application/Window.h"
+#include "Core/Application.h"
+#include "Core/Window.h"
 
 #include "Renderer/Camera.h"
 

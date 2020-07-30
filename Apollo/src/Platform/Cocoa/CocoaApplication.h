@@ -1,7 +1,7 @@
 #ifndef CocoaApplication_h
 #define CocoaApplication_h
 
-#include "Application/Application.h"
+#include "Core/Application.h"
 
 namespace Apollo
 {

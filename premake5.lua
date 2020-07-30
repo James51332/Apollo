@@ -21,7 +21,8 @@ project "Apollo"
   }
 
   includedirs {
-    "%{prj.name}/src/Apollo"
+    "%{prj.name}/src/Apollo",
+    "%{prj.name}/src/Platform"
   }
 
   sysincludedirs
