@@ -6,7 +6,6 @@
 
 #include "Renderer/Camera.h"
 
-#include "Layer.h"
 #include "LayerStack.h"
 
 namespace Apollo
@@ -17,11 +16,9 @@ namespace Apollo
   public:
     Game();
     virtual ~Game();
-
+      
     void PushLayer(Layer *layer);
     void PushOverlay(Layer *overlay);
-
-    void OnEvent(Event &event);
 
     void Run();
 
@@ -31,7 +28,6 @@ namespace Apollo
     LayerStack m_LayerStack;
 
   protected:
-    OrthographicCamera Camera;
     WindowDescription WindowDescription;
   };
 

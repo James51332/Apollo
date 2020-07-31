@@ -60,13 +60,13 @@ namespace Apollo
 		MouseButtonEvent(MouseCode button)
 				: m_Button(button) {}
 
-		MouseCode m_Button;
+		int m_Button;
 	};
 
 	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(MouseCode button)
+		MouseButtonPressedEvent(int button)
 				: MouseButtonEvent(button) {}
 
 		std::string ToString() const override
@@ -82,7 +82,7 @@ namespace Apollo
 	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(MouseCode button)
+		MouseButtonReleasedEvent(int button)
 				: MouseButtonEvent(button) {}
 
 		std::string ToString() const override

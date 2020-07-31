@@ -1,5 +1,5 @@
 #include "OpenGLVertexArray.h"
-#include "OpenGLLoader.h"
+#include "OpenGL/OpenGLLoader.h"
 
 #include "Renderer/Buffer.h"
 

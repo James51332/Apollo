@@ -6,6 +6,10 @@
 
 #include "Core/Base.h"
 
+#include <string>
+#include <iostream>
+#include <sstream>
+
 namespace Apollo
 {
 

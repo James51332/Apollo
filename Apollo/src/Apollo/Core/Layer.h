@@ -1,9 +1,9 @@
 #ifndef Layer_h
 #define Layer_h
 
-#include <string>
-
 #include "Events/Event.h"
+
+#include <string>
 
 namespace Apollo
 {
@@ -11,15 +11,13 @@ namespace Apollo
   class Layer
   {
   public:
-    Layer(const std::string &debugName = "Layer");
+    Layer(const std::string &debguName);
     virtual ~Layer();
 
     virtual void OnAttach() {}
     virtual void OnDetach() {}
     virtual void OnUpdate() {}
     virtual void OnEvent(Event &event) {}
-
-    inline const std::string &GetName() const { return m_DebugName; }
 
   private:
     std::string m_DebugName;

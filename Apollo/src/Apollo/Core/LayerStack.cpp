@@ -5,6 +5,7 @@ namespace Apollo
 
   LayerStack::LayerStack()
   {
+    m_LayerInsert = m_Layers.begin();
   }
 
   LayerStack::~LayerStack()
@@ -15,7 +16,7 @@ namespace Apollo
 
   void LayerStack::PushLayer(Layer *layer)
   {
-    m_LayerInsert = m_Layers.emplace(m_LayerInsert, layer);
+    m_Layers.emplace(m_LayerInsert, layer);
   }
 
   void LayerStack::PushOverlay(Layer *overlay)
