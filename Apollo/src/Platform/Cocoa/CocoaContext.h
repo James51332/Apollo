@@ -1,6 +1,8 @@
 #ifndef CocoaContext_h
 #define CocoaContext_h
 
+#include "Core/Window.h"
+
 #include "Renderer/RenderingContext.h"
 
 namespace Apollo
@@ -17,7 +19,12 @@ namespace Apollo
     virtual ~CocoaContext();
 
     virtual void Update() = 0;
+
+    virtual void SetEventCallback(const Window::WindowEventFn &callback) = 0;
     virtual void SetWindow(void *window) = 0;
+
+  protected:
+    Window::WindowEventFn m_Callback;
   };
 
   ////////////////////////////////////////////////////////////
@@ -31,6 +38,8 @@ namespace Apollo
     ~CocoaOpenGLContext();
 
     void Update();
+
+    void SetEventCallback(const Window::WindowEventFn &callback);
     void SetWindow(void *window);
 
   private:

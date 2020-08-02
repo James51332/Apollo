@@ -12,14 +12,15 @@ namespace Apollo
     CocoaWindow(const WindowDescription &desc);
     ~CocoaWindow();
 
+    void Show();
     void Update();
+
+    void SetEventCallback(const Window::WindowEventFn &callback);
     void SetContext(RenderingContext *context);
+    void SetDesc(const WindowDescription &desc);
 
     int GetWidth();
     int GetHeight();
-
-    void SetDesc(const WindowDescription &desc);
-    void Show();
 
   private:
     void *m_Object;

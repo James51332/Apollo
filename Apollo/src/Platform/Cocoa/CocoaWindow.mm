@@ -56,22 +56,24 @@ CocoaWindow::~CocoaWindow() {
   m_Object = nullptr;
 }
 
-void CocoaWindow::Update() {
+void CocoaWindow::Show() 
+{
+  [(NSWindow *)m_Object makeKeyAndOrderFront: nil];
+  [(NSWindow *)m_Object makeMainWindow];
+  m_Open = true;  
+}
+
+void CocoaWindow::Update() 
+{
   m_Context->Update();
 }
 
-void CocoaWindow::SetContext(RenderingContext *context) {
-  m_Context = context;
-
-  ((CocoaContext *) context)->SetWindow(m_Object);
-}
-
-int CocoaWindow::GetWidth() {
-  return [(NSWindow *)m_Object contentRectForFrameRect: [(NSWindow *)m_Object frame]].size.width;
-}
-
-int CocoaWindow::GetHeight() {
-  return [(NSWindow *)m_Object contentRectForFrameRect: [(NSWindow *)m_Object frame]].size.height;
+void CocoaWindow::SetEventCallback(const Window::WindowEventFn &callback)
+{
+  m_Callback = callback;
+  
+  if (m_Context != nullptr)
+    ((CocoaContext *)m_Context)->SetEventCallback(callback);
 }
 
 void CocoaWindow::SetDesc(const WindowDescription &desc) {
@@ -84,10 +86,22 @@ void CocoaWindow::SetDesc(const WindowDescription &desc) {
   [(NSWindow *)m_Object setTitle: @(desc.Title.c_str())];
 }
 
-void CocoaWindow::Show() {
-  [(NSWindow *)m_Object makeKeyAndOrderFront: nil];
-  [(NSWindow *)m_Object makeMainWindow];
-  m_Open = true;  
+
+void CocoaWindow::SetContext(RenderingContext *context) 
+{
+  m_Context = context;
+
+  ((CocoaContext *) context)->SetWindow(m_Object);
+}
+
+int CocoaWindow::GetWidth() 
+{
+  return [(NSWindow *)m_Object contentRectForFrameRect: [(NSWindow *)m_Object frame]].size.width;
+}
+
+int CocoaWindow::GetHeight() 
+{
+  return [(NSWindow *)m_Object contentRectForFrameRect: [(NSWindow *)m_Object frame]].size.height;
 }
 
 } // namespace Apollo

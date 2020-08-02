@@ -2,6 +2,7 @@
 #define KeyEvent_h
 
 #include "Event.h"
+#include "Core/KeyCodes.h"
 
 namespace Apollo
 {
@@ -9,21 +10,21 @@ namespace Apollo
 	class KeyEvent : public Event
 	{
 	public:
-		KeyCode GetKeyCode() const { return m_KeyCode; }
+        KeyCode GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected:
-		KeyEvent(int keycode)
-				: m_KeyCode(keycode) {}
+		KeyEvent(KeyCode keyCode)
+				: m_KeyCode(keyCode) {}
 
-		int m_KeyCode;
+		KeyCode m_KeyCode;
 	};
 
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
-				: KeyEvent(keycode), m_RepeatCount(repeatCount) {}
+		KeyPressedEvent(KeyCode keyCode, int repeatCount)
+				: KeyEvent(keyCode), m_RepeatCount(repeatCount) {}
 
 		int GetRepeatCount() const { return m_RepeatCount; }
 
@@ -42,7 +43,7 @@ namespace Apollo
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keycode)
+		KeyReleasedEvent(KeyCode keycode)
 				: KeyEvent(keycode) {}
 
 		std::string ToString() const override
@@ -53,22 +54,6 @@ namespace Apollo
 		}
 
 		EVENT_CLASS_TYPE(KeyReleased)
-	};
-
-	class KeyTypedEvent : public KeyEvent
-	{
-	public:
-		KeyTypedEvent(int keycode)
-				: KeyEvent(keycode) {}
-
-		std::string ToString() const override
-		{
-			std::stringstream ss;
-			ss << "KeyTypedEvent: " << m_KeyCode;
-			return ss.str();
-		}
-
-		EVENT_CLASS_TYPE(KeyTyped)
 	};
 } // namespace Apollo
 

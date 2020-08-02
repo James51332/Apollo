@@ -2,7 +2,9 @@
 #define Window_h
 
 #include <string>
+#include <functional>
 
+#include "Events/Event.h"
 #include "Renderer/RenderingContext.h"
 
 namespace Apollo
@@ -23,26 +25,29 @@ namespace Apollo
   class Window
   {
   public:
+    using WindowEventFn = std::function<void(Event &)>;
+
     static Window *Create(const WindowDescription &desc = WindowDescription());
     virtual ~Window();
 
+    virtual void Show() = 0;
     virtual void Update() = 0;
+
+    virtual void SetEventCallback(const WindowEventFn &callback) = 0;
     virtual void SetContext(RenderingContext *context) = 0;
+    virtual void SetDesc(const WindowDescription &desc) = 0;
 
     virtual int GetWidth() = 0;
     virtual int GetHeight() = 0;
 
-    virtual void SetDesc(const WindowDescription &desc) = 0;
-    virtual void Show() = 0;
-
-    bool
-    IsOpen() const
+    bool IsOpen() const
     {
       return m_Open;
     }
 
   protected:
     RenderingContext *m_Context;
+    WindowEventFn m_Callback;
 
     bool m_Open = false;
   };

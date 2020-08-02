@@ -3,10 +3,10 @@
 
 #include "Core/Application.h"
 #include "Core/Window.h"
+#include "Core/LayerStack.h"
+#include "Core/Layer.h"
 
-#include "Renderer/Camera.h"
-
-#include "LayerStack.h"
+#include "Events/Event.h"
 
 namespace Apollo
 {
@@ -16,9 +16,11 @@ namespace Apollo
   public:
     Game();
     virtual ~Game();
-      
+
     void PushLayer(Layer *layer);
     void PushOverlay(Layer *overlay);
+
+    void OnEvent(Event &event);
 
     void Run();
 

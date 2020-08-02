@@ -53,11 +53,11 @@ namespace Apollo
 	class MouseButtonEvent : public Event
 	{
 	public:
-		inline MouseCode GetMouseButton() const { return m_Button; }
+		inline int GetMouseButton() const { return m_Button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	protected:
-		MouseButtonEvent(MouseCode button)
+		MouseButtonEvent(int button)
 				: m_Button(button) {}
 
 		int m_Button;
@@ -76,7 +76,7 @@ namespace Apollo
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MouseButtonPressed)
+		EVENT_CLASS_TYPE(MousePressed)
 	};
 
 	class MouseButtonReleasedEvent : public MouseButtonEvent
@@ -92,7 +92,7 @@ namespace Apollo
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MouseButtonReleased)
+		EVENT_CLASS_TYPE(MouseReleased)
 	};
 
 } // namespace Apollo

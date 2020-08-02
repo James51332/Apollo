@@ -14,4 +14,8 @@
 #include "Renderer/RenderCommand.h"
 #include "Renderer/Renderer.h"
 
+#include "Events/Event.h"
+#include "Events/KeyEvent.h"
+#include "Events/MouseEvent.h"
+
 #endif /* end of include guard: Apollo_h */
