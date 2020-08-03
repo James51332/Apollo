@@ -32,6 +32,7 @@ namespace Apollo
 
     virtual void Show() = 0;
     virtual void Update() = 0;
+    virtual void Close() = 0;
 
     virtual void SetEventCallback(const WindowEventFn &callback) = 0;
     virtual void SetContext(RenderingContext *context) = 0;
@@ -40,16 +41,9 @@ namespace Apollo
     virtual int GetWidth() = 0;
     virtual int GetHeight() = 0;
 
-    bool IsOpen() const
-    {
-      return m_Open;
-    }
-
   protected:
     RenderingContext *m_Context;
     WindowEventFn m_Callback;
-
-    bool m_Open = false;
   };
 
 } // namespace Apollo

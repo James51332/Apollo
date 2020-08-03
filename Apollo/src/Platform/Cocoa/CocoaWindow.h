@@ -14,6 +14,7 @@ namespace Apollo
 
     void Show();
     void Update();
+    void Close();
 
     void SetEventCallback(const Window::WindowEventFn &callback);
     void SetContext(RenderingContext *context);

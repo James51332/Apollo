@@ -2,8 +2,6 @@
 #include "CocoaContext.h"
 #include "CocoaView.h"
 
-#include <Cocoa/Cocoa.h>
-
 namespace Apollo {
 
 ////////////////////////////////////////////////////////////

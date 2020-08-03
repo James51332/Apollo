@@ -56,12 +56,13 @@ public:
     m_Camera.SetPosition({0.25f, 0.25f, 0.0f});
   }
 
-~SandboxLayer()
+  ~SandboxLayer()
   {
   }
 
   void OnUpdate() override
   {
+
     Apollo::RenderCommand::ClearColor(0.2f, 0.2f, 0.2f);
     Apollo::RenderCommand::Clear();
 
@@ -86,7 +87,7 @@ class Sandbox : public Apollo::Game
 public:
   Sandbox()
   {
-    WindowDescription = Apollo::WindowDescription(1280, 720, "Sandbox");
+    SetWindowDescription({1280, 720, "Sandbox"});
     PushLayer(new SandboxLayer());
   }
 };

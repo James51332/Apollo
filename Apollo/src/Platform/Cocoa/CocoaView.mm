@@ -14,7 +14,8 @@
   {
     m_ModifierFlags = 0;
 
-    Apollo::CocoaInitKeyCodes(m_KeyCodes);
+    Apollo::CocoaInitKeyCodes(m_KeyCodes, 128);
+    Apollo::CocoaInitMouseCodes(m_MouseCodes, 16);
 
     return self;
   }
@@ -34,7 +35,7 @@
 
 - (void) mouseDown:(NSEvent *) event
 {
-  Apollo::MouseButtonPressedEvent e(0);
+  Apollo::MouseButtonPressedEvent e(Apollo::MouseLeft);
 
   if (m_Callback)
     m_Callback(e);
@@ -56,7 +57,7 @@
 
 - (void) mouseUp:(NSEvent *) event
 {
-   Apollo::MouseButtonReleasedEvent e(0);
+   Apollo::MouseButtonReleasedEvent e(Apollo::MouseLeft);
 
   if (m_Callback)
     m_Callback(e);
@@ -66,7 +67,7 @@
 {
   [super rightMouseDown: event];
 
-  Apollo::MouseButtonPressedEvent e(0);
+  Apollo::MouseButtonPressedEvent e(Apollo::MouseRight);
 
   if (m_Callback)
     m_Callback(e);
@@ -79,7 +80,7 @@
 
 - (void) rightMouseUp:(NSEvent *) event
 {
-  Apollo::MouseButtonReleasedEvent e(0);
+  Apollo::MouseButtonReleasedEvent e(Apollo::MouseRight);
 
   if (m_Callback)
     m_Callback(e); 
@@ -87,7 +88,7 @@
 
 - (void) otherMouseDown:(NSEvent *) event
 {
-  Apollo::MouseButtonPressedEvent e(0);
+  Apollo::MouseButtonPressedEvent e(m_MouseCodes[[event buttonNumber]]);
 
   if (m_Callback)
     m_Callback(e);
@@ -100,7 +101,7 @@
 
 - (void) otherMouseUp:(NSEvent *) event
 {
-  Apollo::MouseButtonReleasedEvent e(0);
+  Apollo::MouseButtonReleasedEvent e(m_MouseCodes[[event buttonNumber]]);
 
   if (m_Callback)
     m_Callback(e);
@@ -108,7 +109,10 @@
 
 - (void) scrollWheel:(NSEvent *) event
 {
-
+  Apollo::MouseScrolledEvent e([event deltaX], [event deltaY]);
+    
+  if (m_Callback)
+    m_Callback(e);
 }
 
 - (void) keyDown:(NSEvent *) event

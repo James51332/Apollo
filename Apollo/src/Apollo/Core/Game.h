@@ -7,6 +7,7 @@
 #include "Core/Layer.h"
 
 #include "Events/Event.h"
+#include "Events/ApplicationEvent.h"
 
 namespace Apollo
 {
@@ -20,7 +21,10 @@ namespace Apollo
     void PushLayer(Layer *layer);
     void PushOverlay(Layer *overlay);
 
+    void SetWindowDescription(const WindowDescription &desc);
+
     void OnEvent(Event &event);
+    bool OnWindowClose(WindowCloseEvent &event);
 
     void Run();
 
@@ -28,9 +32,7 @@ namespace Apollo
     Application *m_Application;
     Window *m_Window;
     LayerStack m_LayerStack;
-
-  protected:
-    WindowDescription WindowDescription;
+    bool m_Running = true;
   };
 
 } // namespace Apollo

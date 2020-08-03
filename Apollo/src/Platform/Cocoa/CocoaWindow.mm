@@ -1,32 +1,13 @@
 #define APOLLO_OBJC_PLUS_PLUS
 #include "CocoaWindow.h"
 
-#include <Cocoa/Cocoa.h>
-
+#include "CocoaWindowDelegate.h"
 #include "CocoaContext.h"
-
-@interface WindowDelegate : NSObject <NSWindowDelegate> {
-  bool *open;
-}
-- (id) init:(bool *)handle;
-@end
-
-@implementation WindowDelegate
-- (id) init:(bool *)handle {
- open = handle;
- return self;
-}
-
-- (BOOL) windowShouldClose:(NSWindow *)window {
-  (*open) = false;
-  return YES;
-}
-@end
 
 namespace Apollo {
 
-CocoaWindow::CocoaWindow(const WindowDescription &desc) {
-
+CocoaWindow::CocoaWindow(const WindowDescription &desc) 
+{
   NSRect frame = NSMakeRect(0.0, 0.0, desc.Width, desc.Height);
 
   NSUInteger styleMask = NSWindowStyleMaskClosable
@@ -44,8 +25,8 @@ CocoaWindow::CocoaWindow(const WindowDescription &desc) {
   [(NSWindow *)m_Object center];
   [(NSWindow *)m_Object setTitle: @(desc.Title.c_str())];
   
-  m_Delegate = [[WindowDelegate alloc] init: &m_Open];
-  [(NSWindow *)m_Object setDelegate: (id<NSWindowDelegate>)m_Delegate];
+  m_Delegate = [[CocoaWindowDelegate alloc] init];
+  [(NSWindow *)m_Object setDelegate: (CocoaWindowDelegate *) m_Delegate];
 }
 
 CocoaWindow::~CocoaWindow() {
@@ -61,7 +42,6 @@ void CocoaWindow::Show()
 {
   [(NSWindow *)m_Object makeKeyAndOrderFront: nil];
   [(NSWindow *)m_Object makeMainWindow];
-  m_Open = true;  
 }
 
 void CocoaWindow::Update() 
@@ -69,30 +49,38 @@ void CocoaWindow::Update()
   m_Context->Update();
 }
 
+void CocoaWindow::Close()
+{
+  [(NSWindow *)m_Object close];
+}
+
 void CocoaWindow::SetEventCallback(const Window::WindowEventFn &callback)
 {
   m_Callback = callback;
   
+  [(CocoaWindowDelegate *)m_Delegate setEventCallback: callback];
+
   if (m_Context != nullptr)
     ((CocoaContext *)m_Context)->SetEventCallback(callback);
 }
-
-void CocoaWindow::SetDesc(const WindowDescription &desc) {
-  int titlebar = [(NSWindow *)m_Object frame].size.height - GetHeight();
-
-  [(NSWindow *)m_Object setFrame: NSMakeRect(0.0, 0.0, desc.Width, desc.Height + titlebar)
-                         display: NO];
-                      
-  [(NSWindow *)m_Object center];
-  [(NSWindow *)m_Object setTitle: @(desc.Title.c_str())];
-}
-
 
 void CocoaWindow::SetContext(RenderingContext *context) 
 {
   m_Context = context;
 
   ((CocoaContext *) context)->SetWindow(m_Object);
+}
+
+void CocoaWindow::SetDesc(const WindowDescription &desc) {
+  NSRect frameRect = [(NSWindow *)m_Object frame];
+  int contentHeight = [(NSWindow *)m_Object contentRectForFrameRect: frameRect].size.height;
+  int titlebarHeight = frameRect.size.height - contentHeight;
+
+  [(NSWindow *)m_Object setFrame: NSMakeRect(0.0, 0.0, desc.Width, desc.Height + titlebarHeight)
+                         display: NO];
+                      
+  [(NSWindow *)m_Object center];
+  [(NSWindow *)m_Object setTitle: @(desc.Title.c_str())];
 }
 
 int CocoaWindow::GetWidth() 

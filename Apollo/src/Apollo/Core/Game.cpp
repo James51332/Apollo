@@ -10,10 +10,13 @@ namespace Apollo
   {
     m_Application = Application::Create();
     m_Window = Window::Create();
+
+    m_Window->SetEventCallback(std::bind(&Game::OnEvent, this, std::placeholders::_1));
   }
 
   Game::~Game()
   {
+    m_Window->Close();
     delete m_Window;
 
     m_Application->Terminate();
@@ -30,8 +33,17 @@ namespace Apollo
     m_LayerStack.PushOverlay(overlay);
   }
 
+  void Game::SetWindowDescription(const WindowDescription &desc)
+  {
+    m_Window->SetDesc(desc);
+  }
+
   void Game::OnEvent(Event &event)
   {
+    EventDispatcher e(event);
+
+    e.Dispatch<WindowCloseEvent>(std::bind(&Game::OnWindowClose, this, std::placeholders::_1));
+
     for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
     {
       if (event.Handled)
@@ -40,13 +52,17 @@ namespace Apollo
     }
   }
 
+  bool Game::OnWindowClose(WindowCloseEvent &event)
+  {
+    m_Running = false;
+    return true;
+  }
+
   void Game::Run()
   {
-    m_Window->SetEventCallback(std::bind(&Game::OnEvent, this, std::placeholders::_1));
-    m_Window->SetDesc(WindowDescription);
     m_Window->Show();
 
-    while (m_Window->IsOpen())
+    while (m_Running)
     {
       m_Application->Update();
 

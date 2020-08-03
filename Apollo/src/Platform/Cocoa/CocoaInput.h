@@ -7,8 +7,11 @@
 
 namespace Apollo
 {
-  static void CocoaInitKeyCodes(Apollo::KeyCode *keyCodes)
+  static void CocoaInitKeyCodes(Apollo::KeyCode *keyCodes, int size)
   {
+    for (int i = 0; i < size; i++)
+      keyCodes[i] = KeyNone;
+
     keyCodes[0] = KeyA;
     keyCodes[11] = KeyB;
     keyCodes[8] = KeyC;
@@ -60,6 +63,18 @@ namespace Apollo
     keyCodes[109] = KeyF10;
     keyCodes[103] = KeyF11;
     keyCodes[111] = KeyF12;
+  }
+
+  static void CocoaInitMouseCodes(Apollo::MouseCode *mouseCodes, int size)
+  {
+    for (int i = 0; i < size; i++)
+      mouseCodes[i] = MouseNone;
+
+    mouseCodes[0] = MouseLeft;
+    mouseCodes[1] = MouseRight;
+    mouseCodes[2] = MouseButton3;
+    mouseCodes[3] = MouseButton4;
+    mouseCodes[4] = MouseButton5;
   }
 
   static bool IsFlagDown(NSUInteger oldFlags, NSUInteger newFlags, NSUInteger flag)
