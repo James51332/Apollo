@@ -1,122 +1,65 @@
 #ifndef CocoaInput_h
 #define CocoaInput_h
 
-#include <Cocoa/Cocoa.h>
+#ifdef APOLLO_OBJC_PLUS_PLUS
 
 #include "Core/KeyCodes.h"
 
 namespace Apollo
 {
-
-  static KeyCode CocoaKeyCodeToApolloKeyCode(int keyCode)
+  static void CocoaInitKeyCodes(Apollo::KeyCode *keyCodes)
   {
-    switch (keyCode)
-    {
-    case 0:
-      return KeyA;
-    case 11:
-      return KeyB;
-    case 8:
-      return KeyC;
-    case 2:
-      return KeyD;
-    case 14:
-      return KeyE;
-    case 3:
-      return KeyF;
-    case 5:
-      return KeyG;
-    case 4:
-      return KeyH;
-    case 34:
-      return KeyI;
-    case 38:
-      return KeyJ;
-    case 40:
-      return KeyK;
-    case 37:
-      return KeyL;
-    case 46:
-      return KeyM;
-    case 45:
-      return KeyN;
-    case 31:
-      return KeyO;
-    case 35:
-      return KeyP;
-    case 12:
-      return KeyQ;
-    case 15:
-      return KeyR;
-    case 1:
-      return KeyS;
-    case 17:
-      return KeyT;
-    case 32:
-      return KeyU;
-    case 9:
-      return KeyV;
-    case 13:
-      return KeyW;
-    case 7:
-      return KeyX;
-    case 16:
-      return KeyY;
-    case 6:
-      return KeyZ;
-    case 53:
-      return KeyEscape;
-    case 50:
-      return KeyGrave;
-    case 48:
-      return KeyTab;
-    case 123:
-      return KeyLeft;
-    case 126:
-      return KeyUp;
-    case 125:
-      return KeyDown;
-    case 124:
-      return KeyRight;
-    case 42:
-      return KeyBackslash;
-    case 51:
-      return KeyBackspace;
-    case 30:
-      return KeyRightBracket;
-    case 33:
-      return KeyLeftBracket;
-    case 27:
-      return KeyDash;
-    case 24:
-      return KeyEquals;
-    case 122:
-      return KeyF1;
-    case 120:
-      return KeyF2;
-    case 99:
-      return KeyF3;
-    case 118:
-      return KeyF4;
-    case 96:
-      return KeyF5;
-    case 97:
-      return KeyF6;
-    case 98:
-      return KeyF7;
-    case 100:
-      return KeyF8;
-    case 101:
-      return KeyF9;
-    case 109:
-      return KeyF10;
-    case 103:
-      return KeyF11;
-    case 111:
-      return KeyF12;
-    }
-      
-      return KeyA;
+    keyCodes[0] = KeyA;
+    keyCodes[11] = KeyB;
+    keyCodes[8] = KeyC;
+    keyCodes[2] = KeyD;
+    keyCodes[14] = KeyE;
+    keyCodes[3] = KeyF;
+    keyCodes[5] = KeyG;
+    keyCodes[4] = KeyH;
+    keyCodes[34] = KeyI;
+    keyCodes[38] = KeyJ;
+    keyCodes[40] = KeyK;
+    keyCodes[37] = KeyL;
+    keyCodes[46] = KeyM;
+    keyCodes[45] = KeyN;
+    keyCodes[31] = KeyO;
+    keyCodes[35] = KeyP;
+    keyCodes[12] = KeyQ;
+    keyCodes[15] = KeyR;
+    keyCodes[1] = KeyS;
+    keyCodes[17] = KeyT;
+    keyCodes[32] = KeyU;
+    keyCodes[9] = KeyV;
+    keyCodes[13] = KeyW;
+    keyCodes[7] = KeyX;
+    keyCodes[16] = KeyY;
+    keyCodes[6] = KeyZ;
+    keyCodes[53] = KeyEscape;
+    keyCodes[50] = KeyGrave;
+    keyCodes[48] = KeyTab;
+    keyCodes[123] = KeyLeft;
+    keyCodes[126] = KeyUp;
+    keyCodes[125] = KeyDown;
+    keyCodes[124] = KeyRight;
+    keyCodes[42] = KeyBackslash;
+    keyCodes[51] = KeyBackspace;
+    keyCodes[30] = KeyRightBracket;
+    keyCodes[33] = KeyLeftBracket;
+    keyCodes[27] = KeyDash;
+    keyCodes[24] = KeyEquals;
+    keyCodes[122] = KeyF1;
+    keyCodes[120] = KeyF2;
+    keyCodes[99] = KeyF3;
+    keyCodes[118] = KeyF4;
+    keyCodes[96] = KeyF5;
+    keyCodes[97] = KeyF6;
+    keyCodes[98] = KeyF7;
+    keyCodes[100] = KeyF8;
+    keyCodes[101] = KeyF9;
+    keyCodes[109] = KeyF10;
+    keyCodes[103] = KeyF11;
+    keyCodes[111] = KeyF12;
   }
 
   static bool IsFlagDown(NSUInteger oldFlags, NSUInteger newFlags, NSUInteger flag)
@@ -130,5 +73,7 @@ namespace Apollo
   }
 
 } // namespace Apollo
+
+#endif
 
 #endif /* end of include guard: CocoaInput_h */

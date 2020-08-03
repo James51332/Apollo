@@ -1,19 +1,25 @@
+#define APOLLO_OBJC_PLUS_PLUS
 #include "CocoaApplication.h"
 
 #include <Cocoa/Cocoa.h>
 
 namespace Apollo {
 
-CocoaApplication::CocoaApplication() {
+CocoaApplication::CocoaApplication() 
+{
   m_App = (void *)[NSApplication sharedApplication];
   [(NSApplication *)m_App setActivationPolicy: NSApplicationActivationPolicyRegular];
+
+  // TODO: Create Proper Menu Bar
 }
 
-CocoaApplication::~CocoaApplication() {
+CocoaApplication::~CocoaApplication() 
+{
 
 }
 
-void CocoaApplication::Update() {
+void CocoaApplication::Update() 
+{
   for (;;) {
     NSEvent *event = [(NSApplication *)m_App nextEventMatchingMask: NSEventMaskAny
                                                                  untilDate: [NSDate distantPast]
@@ -27,7 +33,8 @@ void CocoaApplication::Update() {
   }
 }
 
-void CocoaApplication::Terminate() {
+void CocoaApplication::Terminate() 
+{
   [(NSApplication *)m_App terminate: nil];
 }
 

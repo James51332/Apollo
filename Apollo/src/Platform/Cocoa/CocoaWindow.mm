@@ -1,3 +1,4 @@
+#define APOLLO_OBJC_PLUS_PLUS
 #include "CocoaWindow.h"
 
 #include <Cocoa/Cocoa.h>
