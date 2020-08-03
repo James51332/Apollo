@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#include "Input.h"
+
 #include <iostream>
 
 namespace Apollo
@@ -9,6 +11,9 @@ namespace Apollo
       : m_LayerStack()
   {
     m_Application = Application::Create();
+     
+    Input::Initialize();
+      
     m_Window = Window::Create();
 
     m_Window->SetEventCallback(std::bind(&Game::OnEvent, this, std::placeholders::_1));
@@ -18,6 +23,8 @@ namespace Apollo
   {
     m_Window->Close();
     delete m_Window;
+      
+    Input::Deinitialize();
 
     m_Application->Terminate();
     delete m_Application;
@@ -43,7 +50,9 @@ namespace Apollo
     EventDispatcher e(event);
 
     e.Dispatch<WindowCloseEvent>(std::bind(&Game::OnWindowClose, this, std::placeholders::_1));
-
+    
+    Input::OnEvent(event);
+      
     for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
     {
       if (event.Handled)

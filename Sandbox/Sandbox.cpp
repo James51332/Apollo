@@ -52,8 +52,6 @@ public:
       })";
 
     shader = Apollo::Shader::Create(vertexSource, fragmentSource);
-
-    m_Camera.SetPosition({0.25f, 0.25f, 0.0f});
   }
 
   ~SandboxLayer()
@@ -62,6 +60,31 @@ public:
 
   void OnUpdate() override
   {
+    glm::vec3 pos = m_Camera.GetPosition();
+      
+    if (Apollo::Input::IsKeyDown(Apollo::KeyW))
+      pos += glm::vec3(0.0f, 0.05f, 0.0f);
+      
+    if (Apollo::Input::IsKeyDown(Apollo::KeyA))
+      pos += glm::vec3(-0.05f, 0.0f, 0.0f);
+      
+    if (Apollo::Input::IsKeyDown(Apollo::KeyS))
+      pos += glm::vec3(0.0f, -0.05f, 0.0f);
+      
+    if (Apollo::Input::IsKeyDown(Apollo::KeyD))
+      pos += glm::vec3(0.05f, 0.0f, 0.0f);
+      
+    m_Camera.SetPosition(pos);
+      
+    float rot = m_Camera.GetRotation();
+      
+    if (Apollo::Input::IsKeyDown(Apollo::KeyRight))
+      rot += 2.0f;
+      
+    if (Apollo::Input::IsKeyDown(Apollo::KeyLeft))
+      rot -= 2.0f;
+      
+    m_Camera.SetRotation(rot);
 
     Apollo::RenderCommand::ClearColor(0.2f, 0.2f, 0.2f);
     Apollo::RenderCommand::Clear();

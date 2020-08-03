@@ -25,7 +25,7 @@ namespace Apollo
 
   void OrthographicCamera::CalculateViewMatrix()
   {
-    m_View = glm::rotate(glm::mat4(1.0f), glm::radians(-m_Rotation), glm::vec3(0, 0, 1)) *
+    m_View = glm::rotate(glm::mat4(1.0f), glm::radians(m_Rotation), glm::vec3(0, 0, 1)) *
              glm::translate(glm::mat4(1.0f), -m_Position);
       
     m_ProjectionView = m_Projection * m_View;

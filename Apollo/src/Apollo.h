@@ -4,7 +4,7 @@
 // Game (Every Game will subclass this)
 #include "Core/EntryPoint.h"
 #include "Core/Game.h"
-
+#include "Core/Input.h"
 #include "Core/Layer.h"
 
 // Renderer Data Types
