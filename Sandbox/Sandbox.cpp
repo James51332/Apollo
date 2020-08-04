@@ -5,28 +5,52 @@ class SandboxLayer : public Apollo::Layer
 {
 public:
   SandboxLayer()
-      : Layer("Sandbox"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+    : Layer("Sandbox"), m_Camera(-16.0f, 16.0f, -9.0f, 9.0f)
   {
+    // VERTEX ARRAY
+
     float vertices[4 * 6] = {
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f,   // top right
-        0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f, // bottom left
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f   // top left
+        5.0f, 5.0f, 0.0f, 1.0f, 1.0f, 0.0f,   // top right
+        5.0f, -5.0f, 0.0f, 1.0f, 0.0f, 1.0f,  // bottom right
+        -5.0f, -5.0f, 0.0f, 0.0f, 1.0f, 1.0f, // bottom left
+        -5.0f, 5.0f, 0.0f, 1.0f, 1.0f, 1.0f   // top left
     };
+
+    vertexArray = Apollo::VertexArray::Create();
+
     Apollo::VertexBuffer *vertexBuffer = Apollo::VertexBuffer::Create(vertices, sizeof(vertices));
 
     Apollo::BufferLayout layout = {
-        {Apollo::ShaderDataType::Float3, "a_Pos"}, // position
-        {Apollo::ShaderDataType::Float3, "a_Pos"}  // color
+        {Apollo::ShaderDataType::Float3, "a_Pos"},  // position
+        {Apollo::ShaderDataType::Float3, "a_Color"} // color
     };
     vertexBuffer->SetLayout(layout);
-
-    uint32_t indices[2 * 3] = {0, 1, 3, 1, 2, 3};
-    Apollo::IndexBuffer *indexBuffer = Apollo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
-
-    vertexArray = Apollo::VertexArray::Create();
     vertexArray->AddVertexBuffer(vertexBuffer);
+
+    uint32_t indices[] = {0, 1, 3, 1, 2, 3};
+    Apollo::IndexBuffer *indexBuffer = Apollo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
     vertexArray->SetIndexBuffer(indexBuffer);
+
+    // VERTEX ARRAY 2
+
+    m_VertexArray = Apollo::VertexArray::Create();
+
+    float vertex[] = {
+        0.0f, 2.0f, 0.0f,  // top
+        2.0f, -2.0f, 0.0f, // bottom right
+        -2.0f, -2.0f, 0.0f // bottom left
+    };
+    Apollo::VertexBuffer *vb = Apollo::VertexBuffer::Create(vertex, sizeof(vertex));
+
+    Apollo::BufferLayout vblayout = {{Apollo::ShaderDataType::Float3, "a_Pos"}};
+    vb->SetLayout(vblayout);
+    m_VertexArray->AddVertexBuffer(vb);
+
+     uint32_t indexes[] = {0, 1, 2};
+     Apollo::IndexBuffer *ib = Apollo::IndexBuffer::Create(indexes, sizeof(indexes) / sizeof(uint32_t));
+     m_VertexArray->SetIndexBuffer(ib);
+
+    // SHADER
 
     std::string vertexSource = R"(#version 330 core
 
@@ -61,29 +85,29 @@ public:
   void OnUpdate() override
   {
     glm::vec3 pos = m_Camera.GetPosition();
-      
+
     if (Apollo::Input::IsKeyDown(Apollo::KeyW))
-      pos += glm::vec3(0.0f, 0.05f, 0.0f);
-      
+      pos += glm::vec3(0.0f, 0.5f, 0.0f);
+
     if (Apollo::Input::IsKeyDown(Apollo::KeyA))
-      pos += glm::vec3(-0.05f, 0.0f, 0.0f);
-      
+      pos += glm::vec3(-0.5f, 0.0f, 0.0f);
+
     if (Apollo::Input::IsKeyDown(Apollo::KeyS))
-      pos += glm::vec3(0.0f, -0.05f, 0.0f);
-      
+      pos += glm::vec3(0.0f, -0.5f, 0.0f);
+
     if (Apollo::Input::IsKeyDown(Apollo::KeyD))
-      pos += glm::vec3(0.05f, 0.0f, 0.0f);
-      
+      pos += glm::vec3(0.5f, 0.0f, 0.0f);
+
     m_Camera.SetPosition(pos);
-      
+
     float rot = m_Camera.GetRotation();
-      
+
     if (Apollo::Input::IsKeyDown(Apollo::KeyRight))
       rot += 2.0f;
-      
+
     if (Apollo::Input::IsKeyDown(Apollo::KeyLeft))
       rot -= 2.0f;
-      
+
     m_Camera.SetRotation(rot);
 
     Apollo::RenderCommand::ClearColor(0.2f, 0.2f, 0.2f);
@@ -91,6 +115,7 @@ public:
 
     Apollo::Renderer::Begin(m_Camera);
     Apollo::Renderer::Submit(shader, vertexArray);
+    Apollo::Renderer::Submit(shader, m_VertexArray);
     Apollo::Renderer::End();
   }
 
@@ -101,7 +126,7 @@ public:
 
 private:
   Apollo::Shader *shader;
-  Apollo::VertexArray *vertexArray;
+  Apollo::VertexArray *vertexArray, *m_VertexArray;
   Apollo::OrthographicCamera m_Camera;
 };
 

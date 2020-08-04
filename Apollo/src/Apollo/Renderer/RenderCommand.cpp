@@ -19,6 +19,7 @@ namespace Apollo
 
   void RenderCommand::DrawIndexed(VertexArray *vertexArray)
   {
+      vertexArray->Bind();
     s_RenderingApi->DrawIndexed(vertexArray);
   }
 

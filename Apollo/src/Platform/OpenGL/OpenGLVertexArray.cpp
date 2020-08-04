@@ -85,7 +85,7 @@ namespace Apollo
       glVertexAttribPointer(m_Index,
                             element.GetElementCount(),
                             ShaderDataTypeToOpenGLEnum(element.Type),
-                            element.Normalized,
+                            element.Normalized ? GL_TRUE : GL_FALSE,
                             vertexBuffer->GetLayout().GetStride(),
                             (void *)(unsigned long)element.Offset);
 
