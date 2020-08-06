@@ -3,6 +3,10 @@
 
 #include "Core/Application.h"
 
+#ifdef APOLLO_OBJC_PLUS_PLUS
+#include <mach/mach_time.h>
+#endif
+
 namespace Apollo
 {
 
@@ -15,8 +19,13 @@ namespace Apollo
     void Update();
     void Terminate();
 
+    float GetTime();
+
   private:
     void *m_App;
+#ifdef APOLLO_OBJC_PLUS_PLUS
+    mach_timebase_info_data_t m_TimeInfo;
+#endif
   };
 
 } // namespace Apollo

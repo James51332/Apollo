@@ -93,6 +93,8 @@ namespace Apollo
     }
 
     m_VertexBuffers.push_back(vertexBuffer);
+      
+    glBindVertexArray(0);
   }
 
   void OpenGLVertexArray::SetIndexBuffer(IndexBuffer *indexBuffer)
@@ -101,6 +103,8 @@ namespace Apollo
     indexBuffer->Bind();
 
     m_IndexBuffer = indexBuffer;
+      
+    glBindVertexArray(0);
   }
 
 } // namespace Apollo

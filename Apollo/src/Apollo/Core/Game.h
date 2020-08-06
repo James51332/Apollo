@@ -5,6 +5,7 @@
 #include "Core/Window.h"
 #include "Core/LayerStack.h"
 #include "Core/Layer.h"
+#include "Core/Timestep.h"
 
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
@@ -31,7 +32,10 @@ namespace Apollo
   private:
     Application *m_Application;
     Window *m_Window;
+      
     LayerStack m_LayerStack;
+    Timestep m_LastTime;
+
     bool m_Running = true;
   };
 

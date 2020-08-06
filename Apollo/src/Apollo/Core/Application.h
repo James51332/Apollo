@@ -12,6 +12,8 @@ namespace Apollo
 
     virtual void Update() = 0;
     virtual void Terminate() = 0;
+
+    virtual float GetTime() = 0;
   };
 
 } // namespace Apollo

@@ -3,6 +3,8 @@
 
 #include "Events/Event.h"
 
+#include "Core/Timestep.h"
+
 #include <string>
 
 namespace Apollo
@@ -16,7 +18,7 @@ namespace Apollo
 
     virtual void OnAttach() {}
     virtual void OnDetach() {}
-    virtual void OnUpdate() {}
+    virtual void OnUpdate(Timestep time) {}
     virtual void OnEvent(Event &event) {}
 
   private:
