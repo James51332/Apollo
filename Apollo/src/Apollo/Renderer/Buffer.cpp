@@ -8,9 +8,9 @@ namespace Apollo
   ///// VertexBuffer /////////////////////////////////////////
   ////////////////////////////////////////////////////////////
 
-  VertexBuffer *VertexBuffer::Create(float *vertices, uint32_t size)
+  Ref<VertexBuffer> VertexBuffer::Create(float *vertices, uint32_t size)
   {
-    return new OpenGLVertexBuffer(vertices, size);
+    return CreateRef<OpenGLVertexBuffer>(vertices, size);
   }
 
   VertexBuffer::~VertexBuffer()
@@ -21,9 +21,9 @@ namespace Apollo
   ///// IndexBuffer //////////////////////////////////////////
   ////////////////////////////////////////////////////////////
 
-  IndexBuffer *IndexBuffer::Create(uint32_t *indices, uint32_t count)
+  Ref<IndexBuffer> IndexBuffer::Create(uint32_t *indices, uint32_t count)
   {
-    return new OpenGLIndexBuffer(indices, count);
+    return CreateRef<OpenGLIndexBuffer>(indices, count);
   }
 
   IndexBuffer::~IndexBuffer()

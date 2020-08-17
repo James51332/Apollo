@@ -4,6 +4,8 @@
 #include <string>
 #include <functional>
 
+#include "Core/Base.h"
+
 #include "Events/Event.h"
 #include "Renderer/RenderingContext.h"
 
@@ -27,7 +29,7 @@ namespace Apollo
   public:
     using WindowEventFn = std::function<void(Event &)>;
 
-    static Window *Create(const WindowDescription &desc = WindowDescription());
+    static Scope<Window> Create(const WindowDescription &desc = WindowDescription());
     virtual ~Window();
 
     virtual void Show() = 0;
@@ -35,14 +37,14 @@ namespace Apollo
     virtual void Close() = 0;
 
     virtual void SetEventCallback(const WindowEventFn &callback) = 0;
-    virtual void SetContext(RenderingContext *context) = 0;
+    virtual void SetContext(const Ref<RenderingContext> &context) = 0;
     virtual void SetDesc(const WindowDescription &desc) = 0;
 
     virtual int GetWidth() = 0;
     virtual int GetHeight() = 0;
 
   protected:
-    RenderingContext *m_Context;
+    Ref<RenderingContext> m_Context;
     WindowEventFn m_Callback;
   };
 

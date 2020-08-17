@@ -15,10 +15,10 @@ namespace Apollo
   class CocoaContext : public RenderingContext
   {
   public:
-    static CocoaContext *Create(RenderingApi::Api api);
+    static Ref<CocoaContext> Create(RenderingApi::Api api);
     virtual ~CocoaContext();
 
-    virtual void Update() = 0;
+    virtual void OnUpdate() = 0;
 
     virtual void SetEventCallback(const Window::WindowEventFn &callback) = 0;
     virtual void SetWindow(void *window) = 0;
@@ -37,7 +37,7 @@ namespace Apollo
     CocoaOpenGLContext();
     ~CocoaOpenGLContext();
 
-    void Update();
+    void OnUpdate();
 
     void SetEventCallback(const Window::WindowEventFn &callback);
     void SetWindow(void *window);

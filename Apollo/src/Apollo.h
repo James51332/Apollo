@@ -6,6 +6,7 @@
 #include "Core/Game.h"
 #include "Core/Input.h"
 #include "Core/Layer.h"
+#include "Core/Base.h"
 
 // Renderer Data Types
 #include "Renderer/Shader.h"

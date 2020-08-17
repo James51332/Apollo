@@ -15,8 +15,8 @@ namespace Apollo
     void Bind();
     void Unbind();
 
-    void AddVertexBuffer(VertexBuffer *vertexBuffer);
-    void SetIndexBuffer(IndexBuffer *indexBuffer);
+    void AddVertexBuffer(const Ref<VertexBuffer> &vertexBuffer);
+    void SetIndexBuffer(const Ref<IndexBuffer> &indexBuffer);
 
   private:
     uint32_t m_RendererID;

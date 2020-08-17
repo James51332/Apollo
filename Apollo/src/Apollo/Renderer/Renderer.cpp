@@ -13,11 +13,11 @@ namespace Apollo
     s_ProjectionView = camera.GetProjectionView();
   }
 
-  void Renderer::Submit(Shader *shader, VertexArray *vertexArray, const glm::mat4 &transform)
+  void Renderer::Submit(const Ref<Shader> &shader, const Ref<VertexArray> &vertexArray, const glm::mat4 &transform)
   {
     shader->Bind();
-    static_cast<OpenGLShader *>(shader)->UploadMatrix4("u_Camera", s_ProjectionView);
-    static_cast<OpenGLShader *>(shader)->UploadMatrix4("u_Transform", transform);
+    std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadMatrix4("u_Camera", s_ProjectionView);
+    std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadMatrix4("u_Transform", transform);
 
     vertexArray->Bind();
     RenderCommand::DrawIndexed(vertexArray);

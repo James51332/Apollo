@@ -1,6 +1,8 @@
 #ifndef Shader_h
 #define Shader_h
 
+#include "Core/Base.h"
+
 #include <string>
 #include <glm/glm.hpp>
 
@@ -10,7 +12,7 @@ namespace Apollo
   class Shader
   {
   public:
-    static Shader *Create(const std::string &vertexSrc, const std::string &fragmentSrc);
+    static Ref<Shader> Create(const std::string &vertexSrc, const std::string &fragmentSrc);
     virtual ~Shader();
 
     virtual void Bind() = 0;

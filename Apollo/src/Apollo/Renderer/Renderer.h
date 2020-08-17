@@ -24,7 +24,7 @@ namespace Apollo
     }
 
     static void Begin(const OrthographicCamera &camera);
-    static void Submit(Shader *shader, VertexArray *array, const glm::mat4 &transform = glm::mat4(1.0f));
+    static void Submit(const Ref<Shader> &shader, const Ref<VertexArray> &array, const glm::mat4 &transform = glm::mat4(1.0f));
     static void End();
 
   private:

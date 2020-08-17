@@ -8,11 +8,11 @@ namespace Apollo {
 ///// CocoaContext /////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 
-CocoaContext *CocoaContext::Create(RenderingApi::Api api) 
+Ref<CocoaContext> CocoaContext::Create(RenderingApi::Api api)
 {
   switch (api) {
-    case RenderingApi::Api::OpenGL: return new CocoaOpenGLContext(); break;
     case RenderingApi::Api::None: break;
+    case RenderingApi::Api::OpenGL: return CreateRef<CocoaOpenGLContext>();
   }
     
   return nullptr;
@@ -71,7 +71,7 @@ CocoaOpenGLContext::~CocoaOpenGLContext()
   m_Context = nullptr;
 }
 
-void CocoaOpenGLContext::Update() 
+void CocoaOpenGLContext::OnUpdate() 
 {
   [(NSOpenGLContext *)m_Context flushBuffer];
 }

@@ -21,7 +21,6 @@ namespace Apollo
     Game::~Game()
     {
         m_Window->Close();
-        delete m_Window;
 
         Input::Deinitialize();
 

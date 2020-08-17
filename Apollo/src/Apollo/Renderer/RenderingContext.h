@@ -1,6 +1,8 @@
 #ifndef RenderingContext_h
 #define RenderingContext_h
 
+#include "Core/Base.h"
+
 #include "RenderingApi.h"
 
 namespace Apollo
@@ -13,10 +15,10 @@ namespace Apollo
   {
   public:
     //TODO: Accept Rendering Api for creation of
-    static RenderingContext *Create(RenderingApi::Api api);
+    static Ref<RenderingContext> Create(RenderingApi::Api api);
     virtual ~RenderingContext();
 
-    virtual void Update() = 0;
+    virtual void OnUpdate() = 0;
 
     RenderingApi::Api GetApi() const { return m_Api; }
 

@@ -11,7 +11,7 @@ namespace Apollo
   public:
     static void ClearColor(float red, float green, float blue, float alpha = 1.0);
     static void Clear();
-    static void DrawIndexed(VertexArray *vertexArray);
+    static void DrawIndexed(const Ref<VertexArray> &vertexArray);
 
   private:
     static RenderingApi *s_RenderingApi;

@@ -1,6 +1,8 @@
 #ifndef Buffer_h
 #define Buffer_h
 
+#include "Core/Base.h"
+
 #include <cstdint>
 #include <initializer_list>
 #include <vector>
@@ -117,7 +119,7 @@ namespace Apollo
   {
   public:
     BufferLayout(std::initializer_list<BufferElement> elements)
-      : m_Elements(elements) { CalculateOffsetsAndStride(); }
+        : m_Elements(elements) { CalculateOffsetsAndStride(); }
     BufferLayout() {}
 
     inline uint32_t GetStride() const { return m_Stride; }
@@ -145,7 +147,7 @@ namespace Apollo
   class VertexBuffer
   {
   public:
-    static VertexBuffer *Create(float *vertices, uint32_t size);
+    static Ref<VertexBuffer> Create(float *vertices, uint32_t size);
     virtual ~VertexBuffer();
 
     virtual void Bind() = 0;
@@ -165,7 +167,7 @@ namespace Apollo
   class IndexBuffer
   {
   public:
-    static IndexBuffer *Create(uint32_t *indices, uint32_t count);
+    static Ref<IndexBuffer> Create(uint32_t *indices, uint32_t count);
     virtual ~IndexBuffer();
 
     virtual void Bind() = 0;

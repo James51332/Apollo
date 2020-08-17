@@ -1,12 +1,23 @@
 #include "VertexArray.h"
+#include "Renderer.h"
+
 #include "OpenGL/OpenGLVertexArray.h"
 
 namespace Apollo
 {
 
-  VertexArray *VertexArray::Create()
+  Ref<VertexArray> VertexArray::Create()
   {
-    return new OpenGLVertexArray();
+    switch (Renderer::GetCurrentApi())
+    {
+    case RenderingApi::Api::None:
+      break;
+
+    case RenderingApi::Api::OpenGL:
+      return CreateRef<OpenGLVertexArray>();
+    }
+
+    return nullptr;
   }
 
   VertexArray::~VertexArray()

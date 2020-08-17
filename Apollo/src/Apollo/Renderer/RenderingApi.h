@@ -21,7 +21,7 @@ namespace Apollo
     virtual void ClearColor(float red, float green, float blue, float alpha) = 0;
     virtual void Clear() = 0;
 
-    virtual void DrawIndexed(VertexArray *vertexArray) = 0;
+    virtual void DrawIndexed(const Ref<VertexArray> &vertexArray) = 0;
   };
 
 } // namespace Apollo

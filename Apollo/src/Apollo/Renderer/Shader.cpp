@@ -4,9 +4,9 @@
 namespace Apollo
 {
 
-  Shader *Shader::Create(const std::string &vertexSrc, const std::string &fragmentSrc)
+  Ref<Shader> Shader::Create(const std::string &vertexSrc, const std::string &fragmentSrc)
   {
-    return new OpenGLShader(vertexSrc, fragmentSrc);
+    return CreateRef<OpenGLShader>(vertexSrc, fragmentSrc);
   }
 
   Shader::~Shader()

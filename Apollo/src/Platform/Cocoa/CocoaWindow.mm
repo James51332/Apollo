@@ -30,10 +30,6 @@ CocoaWindow::CocoaWindow(const WindowDescription &desc)
 }
 
 CocoaWindow::~CocoaWindow() {
-  ((CocoaContext *)m_Context)->SetWindow(nullptr);
-  delete m_Context;
-  m_Context = nullptr;
-
   [(NSWindow *)m_Object release];
   m_Object = nullptr;
 }
@@ -44,9 +40,9 @@ void CocoaWindow::Show()
   [(NSWindow *)m_Object makeMainWindow];
 }
 
-void CocoaWindow::Update() 
+void CocoaWindow::Update()
 {
-  m_Context->Update();
+  m_Context->OnUpdate();
 }
 
 void CocoaWindow::Close()
@@ -61,14 +57,13 @@ void CocoaWindow::SetEventCallback(const Window::WindowEventFn &callback)
   [(CocoaWindowDelegate *)m_Delegate setEventCallback: callback];
 
   if (m_Context != nullptr)
-    ((CocoaContext *)m_Context)->SetEventCallback(callback);
+    std::dynamic_pointer_cast<CocoaContext>(m_Context)->SetEventCallback(callback);
 }
 
-void CocoaWindow::SetContext(RenderingContext *context) 
+void CocoaWindow::SetContext(const Ref<RenderingContext> &context)
 {
-  m_Context = context;
-
-  ((CocoaContext *) context)->SetWindow(m_Object);
+    m_Context = context;
+    std::dynamic_pointer_cast<CocoaContext>(m_Context)->SetWindow(m_Object);
 }
 
 void CocoaWindow::SetDesc(const WindowDescription &desc) {

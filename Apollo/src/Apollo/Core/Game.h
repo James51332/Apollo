@@ -13,31 +13,31 @@
 namespace Apollo
 {
 
-    class Game
-    {
-    public:
-        Game();
-        virtual ~Game();
+  class Game
+  {
+  public:
+    Game();
+    virtual ~Game();
 
-        void PushLayer(Layer *layer);
-        void PushOverlay(Layer *overlay);
+    void PushLayer(Layer *layer);
+    void PushOverlay(Layer *overlay);
 
-        void SetWindowDescription(const WindowDescription &desc);
+    void SetWindowDescription(const WindowDescription &desc);
 
-        void OnEvent(Event &event);
-        bool OnWindowClose(WindowCloseEvent &event);
+    void OnEvent(Event &event);
+    bool OnWindowClose(WindowCloseEvent &event);
 
-        void Run();
+    void Run();
 
-    private:
-        Application *m_Application;
-        Window *m_Window;
+  private:
+    Application *m_Application;
+    Scope<Window> m_Window;
 
-        LayerStack m_LayerStack;
-        Timestep m_LastTime;
+    LayerStack m_LayerStack;
+    Timestep m_LastTime;
 
-        bool m_Running = true;
-    };
+    bool m_Running = true;
+  };
 
 } // namespace Apollo
 

@@ -1,6 +1,7 @@
 #ifndef CocoaWindow_h
 #define CocoaWindow_h
 
+#include "Core/Base.h"
 #include "Core/Window.h"
 
 namespace Apollo
@@ -17,7 +18,7 @@ namespace Apollo
     void Close();
 
     void SetEventCallback(const Window::WindowEventFn &callback);
-    void SetContext(RenderingContext *context);
+    void SetContext(const Ref<RenderingContext> &context);
     void SetDesc(const WindowDescription &desc);
 
     int GetWidth();

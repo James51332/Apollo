@@ -17,7 +17,7 @@ namespace Apollo
     s_RenderingApi->Clear();
   }
 
-  void RenderCommand::DrawIndexed(VertexArray *vertexArray)
+  void RenderCommand::DrawIndexed(const Ref<VertexArray> &vertexArray)
   {
     s_RenderingApi->DrawIndexed(vertexArray);
   }
