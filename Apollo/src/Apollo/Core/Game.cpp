@@ -75,8 +75,6 @@ namespace Apollo
             Timestep deltaTime = m_Application->GetTime() - m_LastTime;
             m_LastTime = m_Application->GetTime();
 
-            std::cout << deltaTime << std::endl;
-
             m_Application->Update();
 
             for (Layer *layer : m_LayerStack)

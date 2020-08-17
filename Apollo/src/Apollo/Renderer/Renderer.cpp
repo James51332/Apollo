@@ -1,6 +1,8 @@
 #include "Renderer.h"
 #include "RenderCommand.h"
 
+#include "OpenGL/OpenGLShader.h"
+
 namespace Apollo
 {
   RenderingApi::Api Renderer::s_Api = RenderingApi::Api::OpenGL;
@@ -11,10 +13,13 @@ namespace Apollo
     s_ProjectionView = camera.GetProjectionView();
   }
 
-  void Renderer::Submit(Shader *shader, VertexArray *vertexArray)
+  void Renderer::Submit(Shader *shader, VertexArray *vertexArray, const glm::mat4 &transform)
   {
-    shader->UploadMat4("u_Camera", s_ProjectionView);
     shader->Bind();
+    static_cast<OpenGLShader *>(shader)->UploadMatrix4("u_Camera", s_ProjectionView);
+    static_cast<OpenGLShader *>(shader)->UploadMatrix4("u_Transform", transform);
+
+    vertexArray->Bind();
     RenderCommand::DrawIndexed(vertexArray);
   }
 

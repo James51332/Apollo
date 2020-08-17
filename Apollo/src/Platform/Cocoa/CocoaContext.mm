@@ -46,7 +46,7 @@ CocoaOpenGLContext::CocoaOpenGLContext()
 
   // Suppress setView Deprecation. We can
   // use clang specific pragmas because
-  // this warning  will only show up for xcode
+  // this warning will only show up for xcode
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"

@@ -5,7 +5,6 @@
 
 namespace Apollo
 {
-
   class OpenGLShader : public Shader
   {
   public:
@@ -13,9 +12,16 @@ namespace Apollo
     ~OpenGLShader();
 
     void Bind();
+
     void Unbind();
 
-    void UploadMat4(const std::string &name, const glm::mat4 &matrix);
+    void UploadMatrix3(const std::string &name, const glm::mat3 &matrix);
+    void UploadMatrix4(const std::string &name, const glm::mat4 &matrix);
+
+    void UploadFloat(const std::string &name, float value);
+    void UploadFloat2(const std::string &name, const glm::vec2 &vector);
+    void UploadFloat3(const std::string &name, const glm::vec3 &vector);
+    void UploadFloat4(const std::string &name, const glm::vec4 &vector);
 
   private:
     unsigned int m_RendererID;

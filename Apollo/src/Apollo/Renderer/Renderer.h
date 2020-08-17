@@ -14,11 +14,17 @@ namespace Apollo
   class Renderer
   {
   public:
-    inline static RenderingApi::Api GetCurrentApi() { return s_Api; }
-    inline static void SetCurrentApi(RenderingApi::Api api) { s_Api = api; }
+    inline static RenderingApi::Api GetCurrentApi()
+    {
+      return s_Api;
+    }
+    inline static void SetCurrentApi(RenderingApi::Api api)
+    {
+      s_Api = api;
+    }
 
     static void Begin(const OrthographicCamera &camera);
-    static void Submit(Shader *shader, VertexArray *array);
+    static void Submit(Shader *shader, VertexArray *array, const glm::mat4 &transform = glm::mat4(1.0f));
     static void End();
 
   private:

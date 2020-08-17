@@ -3,20 +3,20 @@
 
 namespace Apollo {
 
-class Timestep
-{
-public:
-    Timestep() = default;
-    Timestep(float time) : m_Time(time) {}
-    
-    float GetSeconds() const { return m_Time; }
-    float GetMilliseconds() const { return m_Time * 1000; }
-    
-    inline operator float() const { return m_Time; }
-    
-private:
-    float m_Time;
-};
+    class Timestep
+    {
+    public:
+        Timestep() = default;
+        Timestep(float time) : m_Time(time) {}
+
+        inline float GetSeconds() const { return m_Time; }
+        inline float GetMilliseconds() const { return m_Time * 1000; }
+
+        inline operator float() const { return m_Time; }
+
+    private:
+        float m_Time;
+    };
 
 } // namespace Apollo
 
